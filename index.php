@@ -1,6 +1,5 @@
-    <?php include("includes/header.php"); ?>
+<?php include("includes/header.php"); ?>
     <main>
-
         <!-- slider Area Start-->
         <div class="slider-area ">
             <!-- Mobile Menu -->

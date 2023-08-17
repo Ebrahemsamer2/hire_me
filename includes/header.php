@@ -1,3 +1,5 @@
+<?php require_once "app.php"; ?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
