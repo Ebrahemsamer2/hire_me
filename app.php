@@ -7,6 +7,3 @@ include "Models/User.php";
 
 use \Models\DB\DBManager;
 use \Models\User;
-
-$user = new User;
-var_dump($user->loadByPrimary(1));

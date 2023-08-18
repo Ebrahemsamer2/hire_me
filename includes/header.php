@@ -15,7 +15,6 @@
             <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
             <link rel="stylesheet" href="assets/css/flaticon.css">
             <link rel="stylesheet" href="assets/css/slicknav.css">
-            <link rel="stylesheet" href="assets/css/price_rangs.css">
             <link rel="stylesheet" href="assets/css/animate.min.css">
             <link rel="stylesheet" href="assets/css/magnific-popup.css">
             <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
@@ -47,7 +46,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a href="index.php"><img src="assets/img/logo/logo.png" alt=""></a>
                             </div>  
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -65,8 +64,8 @@
                                 </div>          
                                 <!-- Header-btn -->
                                 <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="#" class="btn head-btn1">Register</a>
-                                    <a href="#" class="btn head-btn2">Login</a>
+                                    <a href="register.php" class="btn head-btn1">Register</a>
+                                    <a href="login.php" class="btn head-btn2">Login</a>
                                 </div>
                             </div>
                         </div>
