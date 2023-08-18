@@ -1,3 +1,12 @@
+<?php include "init.php"; ?>
+
+<?php 
+if(\Models\Session::checkLogin()){
+    header("Location: index.php");
+    exit;
+}
+?>
+
 <?php include "includes/header.php"; ?>
 <link rel="stylesheet" href="assets/css/login.css">
     

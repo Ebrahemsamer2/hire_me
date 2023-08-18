@@ -1,3 +1,6 @@
+<?php include "init.php"; ?>
+<?php var_dump($_SESSION);?>
+
 <?php include("includes/header.php"); ?>
     <main>
         <!-- slider Area Start-->

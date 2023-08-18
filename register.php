@@ -1,6 +1,15 @@
+<?php include "init.php"; ?>
+
+<?php 
+if(\Models\Session::checkLogin()){
+    header("Location: index.php");
+    exit;
+}
+?>
+
 <?php include "includes/header.php"; ?>
 <link rel="stylesheet" href="assets/css/register.css">
-    
+
 <div class="container register">
     <div class="row">
         <div class="col-md-3 register-left">
@@ -24,46 +33,47 @@
                     <div class="row register-form">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                <input type="text" class="form-control" name="first_name" placeholder="First Name *" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name *" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Your Email *" value="" />
+                                <input type="email" class="form-control" name="email" placeholder="Your Email *" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password *" value="" />
+                                <input type="password" class="form-control" name="password" placeholder="Password *" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control"  placeholder="Confirm Password *" value="" />
+                                <input type="password" class="form-control" name="confirmation" placeholder="Confirm Password *" value="" />
                             </div>
-                            <input type="submit" class="btnRegister"  value="Register as a Employee"/>
+                            <input type="hidden" name="type" value="employee" />
+                            <input type="submit" class="btnRegister" value="Register as a Employee"/>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <h3  class="register-heading">Apply as a Hirer</h3>
                     <div class="row register-form">
                     <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="First Name *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Last Name *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Your Email *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control"  placeholder="Confirm Password *" value="" />
-                            </div>
-                            <input type="submit" class="btnRegister"  value="Register as a Hirer"/>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="first_name" placeholder="First Name *"/>
                         </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="last_name" placeholder="Last Name *"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Your Email *"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Password *"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="confirmation" placeholder="Confirm Password *"/>
+                        </div>
+                        <input type="hidden" name="type" value="employer" />
+                        <input type="submit" class="btnRegister"  value="Register as a Hirer"/>
+                    </div>
                         
                     </div>
                 </div>
@@ -71,6 +81,5 @@
         </div>
     </div>
 </div>
-
-
 <?php include "includes/footer.php"; ?>
+<script src="assets/js/models/user.js"></script>
