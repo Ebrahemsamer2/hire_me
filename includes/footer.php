@@ -166,6 +166,7 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/models/user.js"></script>
     <script src="./assets/js/message.js"></script>
         
     </body>

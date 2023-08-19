@@ -36,19 +36,83 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $message = "Invalid Type";
         }
 
-        if($valid)
+        $user = new \Models\User;
+        $user->setEmail($email);
+        $user_found = $user->loadBy('email');
+
+        if($user_found)
         {
+            $valid = 0;
+            $message = "User is already exist.";
+        }
+        else 
+        {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $user->setUsername($first_name . ' ' . $last_name);
+            $user->setPassword($password);
+            $user->setType($type);
+
+            $user->register();
             $message = "User has been created.";
         }
+        $response_data['success'] = $valid;
+        $response_data['message'] = $message;
+    }
 
-        $password = password_hash($password, PASSWORD_DEFAULT);
+    if($action === 'login')
+    {
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        
+        $valid = 1;
+        $message = "";
+        if(!$email || !$password)
+        {
+            $valid = 0;
+            $message = "All Data is required!";
+        }
+
         $user = new \Models\User;
-        $user->setUsername($first_name . ' ' . $last_name);
         $user->setEmail($email);
-        $user->setPassword($password);
-        $user->setType($type);
 
-        $response_data['success'] = $user->register();
+        $user_found = $user->loadBy('email');
+
+        if(!$user_found)
+        {
+            $valid = 0;
+            $message = "User does not exist.";
+        }
+        else 
+        {
+            if(!password_verify($password, $user_found->getPassword()))
+            {
+                $valid = 0;
+                $message = "Wrong password";
+            } else {
+                $user->login();
+                $message = "Success";
+            }
+        }
+        $response_data['success'] = $valid;
+        $response_data['message'] = $message;
+    }
+
+    if($action === 'logout')
+    {
+        $valid = 1;
+        $message = "";
+
+        if(!\Models\Session::checkLogin())
+        {
+            $valid = 0;
+            $message = "You're already logged out";
+        } else {
+            $session_email = $_SESSION['user']['email'];
+            $user = new \Models\User($session_email);
+            \Models\Session::destroy();
+            $message = "Success";
+        }
+        $response_data['success'] = $valid;
         $response_data['message'] = $message;
     }
 }

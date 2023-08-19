@@ -48,7 +48,7 @@ if(\Models\Session::checkLogin()){
                                 <input type="password" class="form-control" name="confirmation" placeholder="Confirm Password *" value="" />
                             </div>
                             <input type="hidden" name="type" value="employee" />
-                            <input type="submit" class="btnRegister" value="Register as a Employee"/>
+                            <input type="submit" name='register' class="btnRegister" value="Register as a Employee"/>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ if(\Models\Session::checkLogin()){
                             <input type="password" class="form-control" name="confirmation" placeholder="Confirm Password *"/>
                         </div>
                         <input type="hidden" name="type" value="employer" />
-                        <input type="submit" class="btnRegister"  value="Register as a Hirer"/>
+                        <input type="submit" name='register' class="btnRegister"  value="Register as a Hirer"/>
                     </div>
                         
                     </div>
@@ -82,4 +82,3 @@ if(\Models\Session::checkLogin()){
     </div>
 </div>
 <?php include "includes/footer.php"; ?>
-<script src="assets/js/models/user.js"></script>

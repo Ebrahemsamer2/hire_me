@@ -4,15 +4,17 @@ namespace Models\DB;
 
 class DBManager extends DBConnection
 {
-    private $db;
-    protected $table_name;
     protected $primary_col_name;
     protected $primary_col_value;
-    protected $fillable = [];
 
-    public function __construct()
+    public function __construct($email = '')
     {
         parent::__construct();
+        if($email)
+        {
+            $this->email = $email;
+            $this->loadBy('email');
+        }
     }
 
     public function save($data)
@@ -40,11 +42,16 @@ class DBManager extends DBConnection
         return $statement->fetchAll();
     }
     
-    public function loadByPrimary($value)
-    {
-        $query = "SELECT * FROM `$this->table_name` WHERE `$this->primary_col_name` = '$value' ";
-        $statement = $this->pdo->query($query);
-        return $statement->fetch();
+    public function loadBy($column)
+    {   
+        $query = "SELECT * FROM `$this->table_name` WHERE `$column` = ? ";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([$this->$column]);
+        $row = $statement->fetch();
+        if($row){
+            return $this->init($row);
+        }
+        return null;
     }
 
     public function deleteByPrimary($value)

@@ -7,7 +7,7 @@ class User extends DB\DBManager
     private int $id;
     private string $username;
     private string $password;
-    private string $email;
+    protected string $email;
     private string $type;
     private int $created_timestamp;
     private string $updated_timestamp;
@@ -17,9 +17,20 @@ class User extends DB\DBManager
 
     protected $fillable = ['username', 'password', 'email', 'type'];
 
-    private function init()
+    public function __construct($email = '')
     {
-        $this->load();
+        parent::__construct($email);
+    }
+
+    protected function init($row)
+    {
+        $this->id = $row->id;
+        $this->username = $row->username;
+        $this->email = $row->email;
+        $this->password = $row->password;
+        $this->type = $row->type;
+
+        return $this;
     }
 
     public function isEmployer()
@@ -34,7 +45,7 @@ class User extends DB\DBManager
 
         if($this->id)
         {
-            Session::add('user', ['username' => $this->username, 'id' => $this->id]);
+            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $this->id]);
             return true;
         }
         return false;
@@ -42,7 +53,12 @@ class User extends DB\DBManager
 
     public function login()
     {
-        
+        if($this->id)
+        {
+            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $this->id]);
+            return true;
+        }
+        return false;
     }
 
     public function setUsername($username) 
@@ -65,4 +81,8 @@ class User extends DB\DBManager
         $this->type = $type;
     }
 
+    public function getPassword()
+    {
+        return $this->password;
+    }
 }
