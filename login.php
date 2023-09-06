@@ -44,3 +44,5 @@ if(\Models\Session::checkLogin()){
 
 
 <?php include "includes/footer.php"; ?>
+</body>
+</html>

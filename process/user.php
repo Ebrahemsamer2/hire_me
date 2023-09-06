@@ -36,14 +36,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $message = "Invalid Type";
         }
 
-        $user = new \Models\User;
-        $user->setEmail($email);
-        $user_found = $user->loadBy('email');
+        if(! $valid)
+        {
+            $response_data['success'] = $valid;
+            $response_data['message'] = $message;
+            echo json_encode($response_data);
+            exit;
+        }
 
-        if($user_found)
+        $user = new \Models\User([$email]);
+        if($user->getId())
         {
             $valid = 0;
             $message = "User is already exist.";
+
+            $response_data['success'] = $valid;
+            $response_data['message'] = $message;
+            echo json_encode($response_data);
+            exit;
         }
         else 
         {
@@ -54,9 +64,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
             $user->register();
             $message = "User has been created.";
+            $response_data['success'] = $valid;
+            $response_data['message'] = $message;
         }
-        $response_data['success'] = $valid;
-        $response_data['message'] = $message;
+        echo json_encode($response_data);
+        exit;
     }
 
     if($action === 'login')
@@ -70,21 +82,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             $valid = 0;
             $message = "All Data is required!";
+            $response_data['success'] = $valid;
+            $response_data['message'] = $message;
+            
+            echo json_encode($response_data);
+            exit;
+
         }
 
-        $user = new \Models\User;
-        $user->setEmail($email);
-
-        $user_found = $user->loadBy('email');
-
-        if(!$user_found)
+        $user = new \Models\User([$email]);
+        if(!$user->getId())
         {
             $valid = 0;
             $message = "User does not exist.";
         }
         else 
         {
-            if(!password_verify($password, $user_found->getPassword()))
+            if(!password_verify($password, $user->getPassword()))
             {
                 $valid = 0;
                 $message = "Wrong password";
@@ -95,6 +109,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         $response_data['success'] = $valid;
         $response_data['message'] = $message;
+
+        echo json_encode($response_data);
+        exit;
     }
 
     if($action === 'logout')
@@ -108,13 +125,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $message = "You're already logged out";
         } else {
             $session_email = $_SESSION['user']['email'];
-            $user = new \Models\User($session_email);
+            $user = new \Models\User([$session_email]);
             \Models\Session::destroy();
             $message = "Success";
         }
         $response_data['success'] = $valid;
         $response_data['message'] = $message;
+
+        echo json_encode($response_data);
+        exit;
     }
 }
-
-echo json_encode($response_data);

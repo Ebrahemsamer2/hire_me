@@ -37,6 +37,9 @@ let user = {
                     }, 2000);
                 }
             },
+            error: (response) => {
+                console.log(response);
+            },
         });
     },
 

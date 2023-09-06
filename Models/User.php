@@ -5,21 +5,22 @@ namespace Models;
 class User extends DB\DBManager
 {
     private int $id;
-    private string $username;
-    private string $password;
-    protected string $email;
-    private string $type;
-    private int $created_timestamp;
-    private string $updated_timestamp;
+    public string $username;
+    public string $password;
+    public string $email;
+    public string $type;
+    public int $created_timestamp;
+    public string $updated_timestamp;
 
-    protected $table_name = 'users';
-    protected $primary_col_name = 'id';
+    public $table_name = 'users';
+    public $primary_col_name = 'id';
+    public $load_cols = ['email'];
 
     protected $fillable = ['username', 'password', 'email', 'type'];
 
-    public function __construct($email = '')
+    public function __construct($load_data = [])
     {
-        parent::__construct($email);
+        parent::__construct($load_data);
     }
 
     protected function init($row)
@@ -29,8 +30,6 @@ class User extends DB\DBManager
         $this->email = $row->email;
         $this->password = $row->password;
         $this->type = $row->type;
-
-        return $this;
     }
 
     public function isEmployer()
@@ -79,6 +78,11 @@ class User extends DB\DBManager
     public function setType($type) 
     {
         $this->type = $type;
+    }
+
+    public function getId()
+    {
+        return $this->id ?? 0;
     }
 
     public function getPassword()

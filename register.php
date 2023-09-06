@@ -82,3 +82,6 @@ if(\Models\Session::checkLogin()){
     </div>
 </div>
 <?php include "includes/footer.php"; ?>
+
+</body>
+</html>

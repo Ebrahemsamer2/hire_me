@@ -5,16 +5,29 @@ namespace Models\DB;
 class DBManager extends DBConnection
 {
     protected $primary_col_name;
-    protected $primary_col_value;
 
-    public function __construct($email = '')
+    public function __construct($load_data = [])
     {
         parent::__construct();
-        if($email)
+        if(count($this->load_cols) === count($load_data))
         {
-            $this->email = $email;
-            $this->loadBy('email');
+            foreach($this->load_cols as $key => $col)
+                $this->$col = $load_data[$key];
+            
+            $this->loadBy($this->load_cols);
+        }        
+    }
+
+    public function loadAll($offset = 0, $limit = 10)
+    {
+        $rows = [];   
+        $query = "SELECT * FROM `$this->table_name` LIMIT $offset , $limit";
+        $statement = $this->pdo->query($query);
+        while($row = $statement->fetch())
+        {
+            $rows[] = $row;
         }
+        return $rows;
     }
 
     public function save($data)
@@ -34,24 +47,35 @@ class DBManager extends DBConnection
         }
         return false;
     }
-
-    public function load()
-    {
-        $query = "SELECT * FROM `$this->table_name`";
-        $statement = $this->pdo->query($query);
-        return $statement->fetchAll();
-    }
     
-    public function loadBy($column)
-    {   
-        $query = "SELECT * FROM `$this->table_name` WHERE `$column` = ? ";
+    public function loadBy($columns)
+    {
+        $query = "SELECT * FROM `$this->table_name` WHERE `". implode("` = ? AND `", $columns) ."` = ?";
         $statement = $this->pdo->prepare($query);
-        $statement->execute([$this->$column]);
+        $executed_data = [];
+        foreach($columns as $col)
+            $executed_data[] = $this->$col;
+        
+        if(count($executed_data))
+        {
+            $statement->execute($executed_data);
+            $row = $statement->fetch();
+            if($row){
+                $this->init($row);
+            }
+        }
+    }
+
+    public function loadById($id)
+    {
+        $query = "SELECT * FROM `$this->table_name` WHERE `id` = ?";
+        $statement = $this->pdo->prepare($query);
+        
+        $statement->execute([$id]);
         $row = $statement->fetch();
         if($row){
-            return $this->init($row);
+            $this->init($row);
         }
-        return null;
     }
 
     public function deleteByPrimary($value)

@@ -1,4 +1,4 @@
-    <?php include("includes/header.php"); ?>
+<?php include("includes/header.php"); ?>
     <main>
 
         <!-- Hero Area Start-->
@@ -236,4 +236,7 @@
 
     </main>
     
-    <?php include("includes/footer.php"); ?>
+    <?php include "includes/footer.php"; ?>
+
+</body>
+</html>

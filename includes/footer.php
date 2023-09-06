@@ -1,4 +1,4 @@
-    <footer>
+<footer>
         <!-- Footer Start-->
         <div class="footer-area footer-bg footer-padding">
             <div class="container">
@@ -110,9 +110,7 @@
                      <div class="row d-flex justify-content-between align-items-center">
                          <div class="col-xl-10 col-lg-10 ">
                              <div class="footer-copy-right">
-                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p>
                              </div>
                          </div>
                          <div class="col-xl-2 col-lg-2">
@@ -165,9 +163,7 @@
     
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/helper.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/models/user.js"></script>
     <script src="./assets/js/message.js"></script>
-        
-    </body>
-</html>
