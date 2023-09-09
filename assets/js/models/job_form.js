@@ -83,9 +83,12 @@ let job_form = {
             success: (response) => {
                 response = JSON.parse(response);
                 console.log(response);
-                if(response.success && response.job)
+                if(response.success)
                 {
-                    console.log(response.job)
+                    message.show(response.message)
+                    setTimeout(() => {
+                        location.href = "new_job.php";
+                    }, 1000);
                 }
             }
         });

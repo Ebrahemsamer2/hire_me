@@ -34,7 +34,7 @@ let user = {
                 {
                     setTimeout(() => {
                         location.href = "index.php";
-                    }, 2000);
+                    }, 1000);
                 }
             },
             error: (response) => {

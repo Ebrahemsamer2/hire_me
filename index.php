@@ -1,6 +1,8 @@
 <?php include "init.php"; ?>
 
 <?php include("includes/header.php"); ?>
+<link rel="stylesheet" href="assets/css/nice-select.css">
+
     <main>
         <!-- slider Area Start-->
         <div class="slider-area ">
@@ -27,9 +29,6 @@
                                         <div class="select-itms">
                                             <select name="select" id="select1">
                                                 <option value="">Location BD</option>
-                                                <option value="">Location PK</option>
-                                                <option value="">Location US</option>
-                                                <option value="">Location UK</option>
                                             </select>
                                         </div>
                                     </div>
@@ -421,6 +420,12 @@
 
     </main>
     <?php include("includes/footer.php"); ?>
-
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script>
+        var nice_Select = $('select');
+        if(nice_Select.length){
+            nice_Select.niceSelect();
+        }
+    </script>
     </body>
 </html>

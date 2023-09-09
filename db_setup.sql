@@ -11,7 +11,7 @@ CREATE TABLE `hire_me`.`users` (
 
 
 CREATE TABLE `hire_me`.`jobs` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `slug` VARCHAR(255) NOT NULL,
   `employer_id` INT(11) NULL,
   `title` VARCHAR(100) NOT NULL,
