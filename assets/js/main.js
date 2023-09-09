@@ -86,8 +86,6 @@
     }
     mainSlider();
 
-
-
 /* 4. Testimonial Active*/
     var testimonial = $('.h1-testimonial-active');
     if(testimonial.length){
@@ -161,13 +159,6 @@
           }
         }
       });
-    }
-
-
-/* 6. Nice Selectorp  */
-  var nice_Select = $('select');
-    if(nice_Select.length){
-      nice_Select.niceSelect();
     }
 
 /* 7.  Custom Sticky Menu  */

@@ -6,7 +6,7 @@ class DBConnection
 {
     private string $dbname = 'hire_me';
     private string $user = 'root';
-    private string $password = '000000';
+    private string $password = '';
     private string $host = 'localhost';
     private $options = [
 		\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,

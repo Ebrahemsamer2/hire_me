@@ -23,7 +23,8 @@ class Job extends DB\DBManager
     public $primary_col_name = 'id';
     public $load_cols = ['slug'];
 
-    protected $fillable = ['slug', 'title', 'employer_id', 'required_knowledge', 'education_experience', 'location'];
+    protected $fillable = ['slug', 'title', 'description', 'employer_id', 'required_knowledge', 'education_experience', 
+    'location', 'job_nature', "salary_from", "salary_to", "vacancy_number"];
 
     public function __construct($load_data = [])
     {
@@ -40,10 +41,22 @@ class Job extends DB\DBManager
         $this->location = $row->location;
         $this->description = $row->description;
         $this->salary_from = $row->salary_from;
-        $this->salary_to = $row->salary_to;
         $this->job_nature = $row->job_nature;
         $this->salary_to = $row->salary_to;
         $this->vacancy_number = $row->vacancy_number;
+    }
+
+    public function getJobNatures()
+    {
+        return ["Full Time", "Part Time", "Remotly"];
+    }
+
+    public function saveJob()
+    {
+        $data = [$this->slug, $this->title, $this->description, $_SESSION['user']['id'], $this->required_knowledge, 
+        $this->education_experience, $this->location, $this->job_nature, $this->salary_from, $this->salary_to, $this->vacancy_number];
+        $this->id = $this->save($data);
+        return $this->id ?? false;
     }
 
     public function getId()

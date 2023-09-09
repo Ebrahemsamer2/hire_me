@@ -1,6 +1,10 @@
+<?php
+    include "init.php";
+    $main_title = "Hire Me | Find Your Job.";
+?>
+
 <?php include("includes/header.php"); ?>
     <main>
-
         <!-- Hero Area Start-->
         <div class="slider-area ">
             <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/about.jpg">

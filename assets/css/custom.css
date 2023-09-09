@@ -16,3 +16,9 @@
 #user-dropdown {
     color: #000;
 }
+
+.form-select .nice-select .list
+{
+    overflow: scroll;
+    max-height: 50vh;
+}

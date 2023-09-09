@@ -18,7 +18,6 @@
         <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="assets/css/themify-icons.css">
         <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/custom.css">
    </head>
@@ -72,7 +71,12 @@
 
                                         <div class="dropdown-menu" aria-labelledby="user-dropdown">
                                             <a class="dropdown-item" href="#">Profile</a>
-                                            <a class="dropdown-item" href="#">My Jobs</a>
+                                            <?php if($_SESSION['user']['type'] == 'employee'): ?>
+                                                <a class="dropdown-item" href="#">My Jobs</a>
+                                            <?php endif; ?>
+                                            <?php if($_SESSION['user']['type'] == 'employer'): ?>
+                                                <a class="dropdown-item" href="new_job.php">Create Job</a>
+                                            <?php endif; ?>
                                             <a id='logout' class="dropdown-item" href="#">Logout</a>
                                         </div>
 

@@ -43,7 +43,8 @@ class DBManager extends DBConnection
                     $query .= "?, ";
             }
             $statement = $this->pdo->prepare($query);
-            return $statement->execute($data);
+            $statement->execute($data);
+            return $this->pdo->lastInsertId();
         }
         return false;
     }

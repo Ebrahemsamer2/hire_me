@@ -47,7 +47,7 @@ let job = {
         if(knowledge)
         {
             let html = '';
-            let knowledge_sentences = knowledge.split(":");
+            let knowledge_sentences = knowledge.split(";");
             for(let index in knowledge_sentences)
             {
                 html += '<li>' + knowledge_sentences[index] + '</li>';
@@ -59,7 +59,7 @@ let job = {
         if(experience)
         {
             let html = '';
-            let experience_sentences = experience.split(":");
+            let experience_sentences = experience.split(";");
             for(let index in experience_sentences)
             {
                 html += '<li>' + experience_sentences[index] + '</li>';

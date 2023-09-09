@@ -44,7 +44,7 @@ class User extends DB\DBManager
 
         if($this->id)
         {
-            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $this->id]);
+            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $this->id, 'type' => $this->type]);
             return true;
         }
         return false;
@@ -54,7 +54,7 @@ class User extends DB\DBManager
     {
         if($this->id)
         {
-            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $this->id]);
+            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $this->id, 'type' => $this->type]);
             return true;
         }
         return false;
