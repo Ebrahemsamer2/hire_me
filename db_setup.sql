@@ -4,8 +4,8 @@ CREATE TABLE `hire_me`.`users` (
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `type` VARCHAR(20) NOT NULL,
-  `created_timestamp` INT(11) NULL,
-  `updated_timestamp` INT(11) NULL,
+  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
@@ -23,7 +23,7 @@ CREATE TABLE `hire_me`.`jobs` (
   `salary_to` INT(11) NULL,
   `job_nature` VARCHAR(20) NULL,
   `vacancy_number` INT(3) NULL,
-  `created_timestamp` INT(11) NULL,
-  `updated_timestamp` INT(11) NULL,
+  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) VISIBLE);

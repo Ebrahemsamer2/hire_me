@@ -1,22 +1,32 @@
-let timeSince = (timeStamp) => {
-    var now = new Date(),
-        secondsPast = (now.getTime() - timeStamp.getTime() ) / 1000;
-    if(secondsPast < 60){
-        return parseInt(secondsPast) + 's';
+
+let timeSince = (timestamp) => {
+    const date = new Date();
+    const now_timestamp = date.getTime();
+    const seconds = Math.floor(now_timestamp / 1000);
+    
+    const difference = seconds - timestamp;
+    let output = ``;
+    if (difference < 60) {
+        // Less than a minute has passed:
+        output = `${difference} seconds ago`;
+    } else if (difference < 3600) {
+        // Less than an hour has passed:
+        output = `${Math.floor(difference / 60)} minutes ago`;
+    } else if (difference < 86400) {
+        // Less than a day has passed:
+        output = `${Math.floor(difference / 3600)} hours ago`;
+    } else if (difference < 2620800) {
+        // Less than a month has passed:
+        output = `${Math.floor(difference / 86400)} days ago`;
+    } else if (difference < 31449600) {
+        // Less than a year has passed:
+        output = `${Math.floor(difference / 2620800)} months ago`;
+    } else {
+        // More than a year has passed:
+        output = `${Math.floor(difference / 31449600)} years ago`;
     }
-    if(secondsPast < 3600){
-        return parseInt(secondsPast/60) + 'm';
-    }
-    if(secondsPast <= 86400){
-        return parseInt(secondsPast/3600) + 'h';
-    }
-    if(secondsPast > 86400){
-          day = timeStamp.getDate();
-          month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
-          year = timeStamp.getFullYear() == now.getFullYear() ? "" :  " "+timeStamp.getFullYear();
-          return day + " " + month + year;
-    }
-  }
+    return output;
+  };
 
 let getUrlParameter = function getUrlParameter(sParam) {
     let sPageURL = window.location.search.substring(1),

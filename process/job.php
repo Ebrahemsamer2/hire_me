@@ -97,7 +97,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
         
-        $job->slug = implode('-', explode(' ', $title)) . time();
+        $job->slug = implode('-', explode(' ', $title)) . '-' . time();
         $job->title = $title;
         $job->description = $description;
         $job->location = $country . ' - ' . $city;

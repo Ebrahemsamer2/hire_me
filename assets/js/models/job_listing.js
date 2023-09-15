@@ -26,8 +26,9 @@ let jobs = {
         for(let i in jobs)
         {
             let job = jobs[i]; 
-            let created_date = new Date(parseInt(job.created_timestamp));
-            let created_at = timeSince(created_date);
+            let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
+            let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
+            let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
 
             html += '<div id="'+ job.id +'" class="single-job-items mb-30">';
             html += '<div class="job-items">';
@@ -42,7 +43,7 @@ let jobs = {
             html += '<ul>';
             html += '<li>Creative Agency</li>';
             html += '<li><i class="fas fa-map-marker-alt"></i>'+ job.location +'</li>';
-            html += '<li>$'+ job.salary_from +' - $'+ job.salary_to +'</li>';
+            html += '<li>'+ salary_from +' - '+ salary_to +'</li>';
             html += '</ul>';
             html += '</div>';
 
