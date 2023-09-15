@@ -9,6 +9,7 @@ class DBManager extends DBConnection
     public function __construct($load_data = [])
     {
         parent::__construct();
+
         if(count($this->load_cols) === count($load_data))
         {
             foreach($this->load_cols as $key => $col)

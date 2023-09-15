@@ -4,7 +4,7 @@ namespace Models;
 
 class Job extends DB\DBManager
 {
-    private int $id;
+    private int $id = 0;
     public string $title;
     public string $employer_id;
     public string $description;
@@ -33,17 +33,17 @@ class Job extends DB\DBManager
 
     protected function init($row)
     {
-        $this->id = $row->id;
-        $this->title = $row->title;
-        $this->employer_id = $row->employer_id;
-        $this->required_knowledge = $row->required_knowledge;
-        $this->education_experience = $row->education_experience;
-        $this->location = $row->location;
-        $this->description = $row->description;
-        $this->salary_from = $row->salary_from;
+        $this->id = $row->id ?? 0;
+        $this->title = $row->title ?? "";
+        $this->employer_id = $row->employer_id ?? 0;
+        $this->required_knowledge = $row->required_knowledge ?? "";
+        $this->education_experience = $row->education_experience ?? "";
+        $this->location = $row->location ?? "";
+        $this->description = $row->description ?? "";
+        $this->salary_from = $row->salary_from ?? 0;
         $this->job_nature = $row->job_nature;
-        $this->salary_to = $row->salary_to;
-        $this->vacancy_number = $row->vacancy_number;
+        $this->salary_to = $row->salary_to ?? 0;
+        $this->vacancy_number = $row->vacancy_number ?? 0;
     }
 
     public function getJobNatures()

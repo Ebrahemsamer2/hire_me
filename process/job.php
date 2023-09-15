@@ -30,15 +30,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
 
         $job = new \Models\Job([$slug]);
-        if($job->getId())
+        if(! $job->getId())
         {
-            $response_data['success'] = 1;
-            $user = new \Models\User;
-            $user->loadById($job->employer_id);
-            $job->employer = $user;
-
-            $response_data['job'] = $job;
+            $response_data['message'] = 'Invalid Job.';
+            echo json_encode($response_data);
+            exit;
         }
+        $response_data['success'] = 1;
+        $user = new \Models\User;
+        $user->loadById($job->employer_id);
+        $job->employer = $user;
+        $response_data['job'] = $job;
         
         echo json_encode($response_data);
         exit;

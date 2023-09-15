@@ -16,6 +16,9 @@ let job = {
                 if(response.success && response.job)
                 {
                     job.drawJob(response.job);
+                } else {
+                    message.show(response.message);
+                    location.href = "404.php";
                 }
             }
         });
