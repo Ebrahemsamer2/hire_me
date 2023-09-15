@@ -84,7 +84,7 @@
                                <h4>Job Overview</h4>
                            </div>
                             <ul>
-                                <li class='data'>Posted date : <span></span></li>
+                                <li class='date'>Posted date : <span></span></li>
                                 <li class='location'>Location : <span></span></li>
                                 <li class='vacancy'>Vacancy : <span></span></li>
                                 <li class='job_nature'>Job nature : <span></span></li>
@@ -99,7 +99,7 @@
                            <div class="small-section-tittle">
                                <h4>Company Information</h4>
                            </div>
-                              <span>Colorlib</span>
+                              <span class="username">Colorlib</span>
                               <p class='about_me'></p>
                             <ul>
                                 <li class='username'>Name: <span>Colorlib </span></li>

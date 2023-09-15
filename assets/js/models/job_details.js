@@ -27,6 +27,20 @@ let job = {
 
     drawJob: (jobObj) => {
         let company_image_src = "assets/img/icon/job-list1.png";
+        let username = jobObj.employer.username;
+        let web = jobObj.employer.web;
+        let email = jobObj.employer.email;
+        let about_me = jobObj.employer.about_me;
+        
+        let posted_date = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : 'N/A'
+        let location = jobObj.location;
+        let vacancy_number = jobObj.vacancy_number;
+        let job_nature = jobObj.job_nature;
+
+        let salary_from = !jobObj.salary_from ? 'N/A' : '$'+jobObj.salary_from;
+        let salary_to = !jobObj.salary_to ? 'N/A' : '$'+jobObj.salary_to;
+        let salary = salary_from + ' - ' + salary_to;
+
         
         $(".hero-cap > h2").text(jobObj.title);
         $(".job-tittle > a > h4").text(jobObj.title);
@@ -35,11 +49,25 @@ let job = {
         $(".company-img > a > img").attr("src", company_image_src);
         $(".company-img > a > img").attr("alt", jobObj.title);
 
-        $(".job-tittle > ul li.company_name").text(jobObj.employer.username);
+        $(".job-tittle > ul li.company_name").text(username);
         $(".job-tittle > ul li.location").html('<i class="fas fa-map-marker-alt"></i> ' + jobObj.location);
         $(".job-tittle > ul li.salary").text("$" + jobObj.salary_from + " - " + jobObj.salary_to);
 
         $(".job-post-details .post-details1 p").text(jobObj.description);
+        
+        // post-details3
+        $(".post-details3 ul li.date > span").text(posted_date)
+        $(".post-details3 ul li.location > span").text(location)
+        $(".post-details3 ul li.vacancy > span").text(vacancy_number)
+        $(".post-details3 ul li.job_nature > span").text(job_nature)
+        $(".post-details3 ul li.salary > span").text(salary)
+
+         // post-details4
+        $(".post-details4 .username").text(username)
+        $(".post-details4 p.about_me").text(about_me)
+        $(".post-details4 ul li.username span").text(username)
+        $(".post-details4 ul li.web span").text(web)
+        $(".post-details4 ul li.email span").text(email)
 
         job.drawRequiredKnowledge(jobObj.required_knowledge);
         job.drawEducationExperience(jobObj.education_experience);

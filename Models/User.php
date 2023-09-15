@@ -6,9 +6,11 @@ class User extends DB\DBManager
 {
     private int $id;
     public string $username;
-    public string $password;
+    private string $password;
     public string $email;
     public string $type;
+    public string $about_me;
+    public string $web;
     public int $created_timestamp;
     public string $updated_timestamp;
 
@@ -16,7 +18,7 @@ class User extends DB\DBManager
     public $primary_col_name = 'id';
     public $load_cols = ['email'];
 
-    protected $fillable = ['username', 'password', 'email', 'type'];
+    protected $fillable = ['username', 'password', 'email', 'type', 'about_me', 'web'];
 
     public function __construct($load_data = [])
     {
@@ -30,6 +32,8 @@ class User extends DB\DBManager
         $this->email = $row->email;
         $this->password = $row->password;
         $this->type = $row->type;
+        $this->about_me = $row->about_me ?? '';
+        $this->web = $row->web ?? '';
     }
 
     public function isEmployer()
@@ -60,29 +64,14 @@ class User extends DB\DBManager
         return false;
     }
 
-    public function setUsername($username) 
-    {
-        $this->username = $username;
-    }
-
-    public function setEmail($email) 
-    {
-        $this->email = $email;
-    }
-
-    public function setPassword($password) 
-    {
-        $this->password = $password;
-    }
-
-    public function setType($type) 
-    {
-        $this->type = $type;
-    }
-
     public function getId()
     {
         return $this->id ?? 0;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     public function getPassword()

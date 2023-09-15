@@ -4,6 +4,8 @@ CREATE TABLE `hire_me`.`users` (
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `type` VARCHAR(20) NOT NULL,
+  `about_me` TEXT NULL,
+  `web` VARCHAR(100) NULL,
   `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

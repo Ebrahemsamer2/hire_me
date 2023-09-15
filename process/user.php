@@ -58,9 +58,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         else 
         {
             $password = password_hash($password, PASSWORD_DEFAULT);
-            $user->setUsername($first_name . ' ' . $last_name);
             $user->setPassword($password);
-            $user->setType($type);
+            $user->username = $first_name . ' ' . $last_name;
+            $user->type = $type;
 
             $user->register();
             $message = "User has been created.";
