@@ -29,3 +29,15 @@ CREATE TABLE `hire_me`.`jobs` (
   `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) VISIBLE);
+
+CREATE TABLE `job_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `job_id` int(11) NOT NULL,
+  `usrt_id` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+
+ALTER TABLE `hire_me`.`job_user` ADD UNIQUE (`job_id`, `user_id`);

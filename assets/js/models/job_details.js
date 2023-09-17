@@ -16,6 +16,12 @@ let job = {
                 if(response.success && response.job)
                 {
                     job.drawJob(response.job);
+                    let applied_by_current_user = response.applied_by_current_user;
+                    if(applied_by_current_user)
+                    {
+                        $("#apply_now").remove();
+                        $(".apply-btn2").html("<span class='already_applied'>Already Applied</span>");
+                    }
                 } else {
                     message.show(response.message);
                     location.href = "404.php";
@@ -56,18 +62,19 @@ let job = {
         $(".job-post-details .post-details1 p").text(jobObj.description);
         
         // post-details3
-        $(".post-details3 ul li.date > span").text(posted_date)
-        $(".post-details3 ul li.location > span").text(location)
-        $(".post-details3 ul li.vacancy > span").text(vacancy_number)
-        $(".post-details3 ul li.job_nature > span").text(job_nature)
-        $(".post-details3 ul li.salary > span").text(salary)
+        $(".post-details3 ul li.date > span").text(posted_date);
+        $(".post-details3 ul li.location > span").text(location);
+        $(".post-details3 ul li.vacancy > span").text(vacancy_number);
+        $(".post-details3 ul li.job_nature > span").text(job_nature);
+        $(".post-details3 ul li.salary > span").text(salary);
 
-         // post-details4
-        $(".post-details4 .username").text(username)
-        $(".post-details4 p.about_me").text(about_me)
-        $(".post-details4 ul li.username span").text(username)
-        $(".post-details4 ul li.web span").text(web)
-        $(".post-details4 ul li.email span").text(email)
+        // post-details4
+        $(".post-details4 .username").text(username);
+        $(".post-details4 p.about_me").text(about_me);
+        $(".post-details4 ul li.username span").text(username);
+        $(".post-details4 ul li.web span a").text(web);
+        $(".post-details4 ul li.web span a").attr("href", web);
+        $(".post-details4 ul li.email span").text(email);
 
         job.drawRequiredKnowledge(jobObj.required_knowledge);
         job.drawEducationExperience(jobObj.education_experience);
@@ -100,7 +107,27 @@ let job = {
     },
 
     applyJobActions: () => {
-        
+        $("#apply_now").on("click", (e) => {
+            e.preventDefault();
+            console.log("Applying for job");
+
+            let data = {'action': 'apply'};
+            data.slug = getUrlParameter('slug');
+            $.ajax({
+                url: 'process/job_user.php',
+                data: data,
+                type: 'POST',
+                success: (response) => {
+                    response = JSON.parse(response)
+                    if(response.success)
+                    {
+                        $("#apply_now").remove();
+                        $(".apply-btn2").html("<span class='already_applied'>Already Applied</span>");
+                        message.show(response.message)
+                    }
+                }
+            });
+        });
     },
 };
 

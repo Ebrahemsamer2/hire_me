@@ -22,3 +22,19 @@
     overflow: scroll;
     max-height: 50vh;
 }
+
+.already_applied, .apply_employer
+{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.apply_employer
+{
+    color: #fb246a;
+
+}
+.already_applied 
+{
+    color: #22cd22;
+}

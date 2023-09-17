@@ -91,7 +91,11 @@
                                 <li class='salary'>Salary :  <span></span></li>
                             </ul>
                          <div class="apply-btn2">
-                            <a href="#" class="btn">Apply Now</a>
+                            <?php if($_SESSION['user']['type'] == 'employer'): ?>
+                                <span class="apply_employer">Only employees can apply</span>
+                            <?php else: ?>
+                                <a id="apply_now" href="#" class="btn">Apply Now</a>
+                            <?php endif; ?>
                          </div>
                        </div>
                         <div class="post-details4  mb-50">
@@ -103,7 +107,7 @@
                               <p class='about_me'></p>
                             <ul>
                                 <li class='username'>Name: <span>Colorlib </span></li>
-                                <li class='web'>Web : <span> colorlib.com</span></li>
+                                <li class='web'>Web : <span> <a style='color: red' target="_blank" href='#'>colorlib.com</a></span></li>
                                 <li class='email'>Email: <span>carrier.colorlib@gmail.com</span></li>
                             </ul>
                        </div>

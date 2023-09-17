@@ -41,6 +41,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $user->loadById($job->employer_id);
         $job->employer = $user;
         $response_data['job'] = $job;
+
+        $job_user = new \Models\JobUser([$job->getId(), $_SESSION['user']['id']]);
+        if($job_user->getId())
+        {
+            $response_data['applied_by_current_user'] = true;
+        }
         
         echo json_encode($response_data);
         exit;
