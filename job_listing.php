@@ -50,12 +50,8 @@
                                </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select name="select">
+                                    <select class="form-control" name="category">
                                         <option value="">All Category</option>
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
-                                        <option value="">Category 4</option>
                                     </select>
                                 </div>
                                 <!--  Select job items End-->
@@ -65,19 +61,15 @@
                                         <h4>Job Type</h4>
                                     </div>
                                     <label class="container">Full Time
-                                        <input type="checkbox" >
+                                        <input name="job_nature" type="checkbox" >
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">Part Time
-                                        <input type="checkbox" checked="checked active">
+                                        <input name="job_nature" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">Remote
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label class="container">Freelance
-                                        <input type="checkbox">
+                                        <input name="job_nature" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -90,12 +82,8 @@
                                </div>
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
-                                    <select name="select">
+                                    <select class="form-control" name="location">
                                         <option value="">Anywhere</option>
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
-                                        <option value="">Category 4</option>
                                     </select>
                                 </div>
                                 <!--  Select job items End-->
@@ -105,19 +93,19 @@
                                         <h4>Experience</h4>
                                     </div>
                                     <label class="container">1-2 Years
-                                        <input type="checkbox" >
+                                        <input name="experience" type="checkbox" >
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">2-3 Years
-                                        <input type="checkbox" checked="checked active">
+                                        <input name="experience" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">3-6 Years
-                                        <input type="checkbox">
+                                        <input name="experience" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">6-more..
-                                        <input type="checkbox">
+                                        <input name="experience" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

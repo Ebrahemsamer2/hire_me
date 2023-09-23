@@ -109,8 +109,6 @@ let job = {
     applyJobActions: () => {
         $("#apply_now").on("click", (e) => {
             e.preventDefault();
-            console.log("Applying for job");
-
             let data = {'action': 'apply'};
             data.slug = getUrlParameter('slug');
             $.ajax({
@@ -123,8 +121,8 @@ let job = {
                     {
                         $("#apply_now").remove();
                         $(".apply-btn2").html("<span class='already_applied'>Already Applied</span>");
-                        message.show(response.message)
                     }
+                    message.show(response.message)
                 }
             });
         });

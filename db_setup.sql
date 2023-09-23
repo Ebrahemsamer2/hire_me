@@ -12,10 +12,21 @@ CREATE TABLE `hire_me`.`users` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
 
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL AUTO_INCREMENT,
+  `slug` varchar(100) NOT NULL,
+  `created_timestamp` int(11) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` int(11) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_unique` (`name` ASC) VISIBLE);
+
+
 CREATE TABLE `hire_me`.`jobs` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `slug` VARCHAR(255) NOT NULL,
   `employer_id` INT(11) NULL,
+  `category_id` INT(11) NULL,
   `title` VARCHAR(100) NOT NULL,
   `description` TEXT(1000) NULL,
   `required_knowledge` TEXT(10000) NOT NULL,

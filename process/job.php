@@ -37,12 +37,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
         $response_data['success'] = 1;
-        $user = new \Models\User;
-        $user->loadById($job->employer_id);
-        $job->employer = $user;
+        if($job->employer_id) {
+            $user = new \Models\User;
+            $user->loadById($job->employer_id);
+            $job->employer = $user;
+        }
+        if($job->category_id) {
+            $category = new \Models\Category;
+            $category->loadById($job->category_id);
+            $job->category = $category;
+        }
         $response_data['job'] = $job;
 
-        $job_user = new \Models\JobUser([$job->getId(), $_SESSION['user']['id']]);
+        $job_user = new \Models\JobUser([$job->getId(), $_SESSION['user']['id'] ?? 0]);
         if($job_user->getId())
         {
             $response_data['applied_by_current_user'] = true;

@@ -26,8 +26,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
 
-        $user_id = $_SESSION['user']['id'];
-        $user_type = $_SESSION['user']['type'];
+        $user_id = $_SESSION['user']['id'] ?? 0;
+        $user_type = $_SESSION['user']['type'] ?? '';
+
+        if(! $user_id || ! $user_type)
+        {
+            $response_data['message'] = 'You must login to apply.';
+            echo json_encode($response_data);
+            exit;
+        }
 
         if($user_type == 'employer')
         {

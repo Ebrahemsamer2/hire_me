@@ -7,6 +7,7 @@ class Job extends DB\DBManager
     private int $id = 0;
     public string $title;
     public string $employer_id;
+    public string $category_id;
     public string $description;
     public string $required_knowledge;
     public string $education_experience;
@@ -19,11 +20,11 @@ class Job extends DB\DBManager
     public int $created_timestamp;
     public int $updated_timestamp;
 
-    public $table_name = 'jobs';
-    public $primary_col_name = 'id';
-    public $load_cols = ['slug'];
+    protected $table_name = 'jobs';
+    protected $primary_col_name = 'id';
+    protected $load_cols = ['slug'];
 
-    protected $fillable = ['slug', 'title', 'description', 'employer_id', 'required_knowledge', 'education_experience', 
+    protected $fillable = ['slug', 'title', 'description', 'employer_id', 'category_id', 'required_knowledge', 'education_experience', 
     'location', 'job_nature', "salary_from", "salary_to", "vacancy_number"];
 
     public function __construct($load_data = [])
@@ -36,6 +37,7 @@ class Job extends DB\DBManager
         $this->id = $row->id ?? 0;
         $this->title = $row->title ?? "";
         $this->employer_id = $row->employer_id ?? 0;
+        $this->category_id = $row->category_id ?? 0;
         $this->required_knowledge = $row->required_knowledge ?? "";
         $this->education_experience = $row->education_experience ?? "";
         $this->location = $row->location ?? "";

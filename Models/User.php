@@ -14,9 +14,9 @@ class User extends DB\DBManager
     public int $created_timestamp;
     public string $updated_timestamp;
 
-    public $table_name = 'users';
-    public $primary_col_name = 'id';
-    public $load_cols = ['email'];
+    protected $table_name = 'users';
+    protected $primary_col_name = 'id';
+    protected $load_cols = ['email'];
 
     protected $fillable = ['username', 'password', 'email', 'type', 'about_me', 'web'];
 

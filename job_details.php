@@ -91,7 +91,7 @@
                                 <li class='salary'>Salary :  <span></span></li>
                             </ul>
                          <div class="apply-btn2">
-                            <?php if($_SESSION['user']['type'] == 'employer'): ?>
+                            <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'employer'): ?>
                                 <span class="apply_employer">Only employees can apply</span>
                             <?php else: ?>
                                 <a id="apply_now" href="#" class="btn">Apply Now</a>
