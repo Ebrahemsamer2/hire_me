@@ -53,6 +53,25 @@ class Job extends DB\DBManager
         return ["Full Time", "Part Time", "Remotly"];
     }
 
+    public function loadAllLocations()
+    {
+        $query = "SELECT DISTINCT location FROM jobs";
+        $statement = $this->pdo->query($query);
+        return $statement->fetchAll();
+    }
+
+    public function loadForYouJobs()
+    {
+        $query = "SELECT u.username, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id LIMIT 0, 5";
+        $statement = $this->pdo->query($query);
+        return $statement->fetchAll();
+    }
+
+    public function loadFilteredJobs($filters = [])
+    {
+        
+    }
+
     public function saveJob()
     {
         $data = [$this->slug, $this->title, $this->description, $_SESSION['user']['id'], $this->required_knowledge, 

@@ -31,6 +31,25 @@ class DBManager extends DBConnection
         return $rows;
     }
 
+    public function loadAllWith($table_to_join, $foreign_key, $data, $offset = 0, $limit = 10)
+    {
+        $data_to_collect = "";
+        foreach($data as $key => $col)
+        {
+            $data_to_collect .= "$table_to_join.$col";
+            if($key !== count($data) - 1)
+                $data_to_collect .= ', ';
+        }
+        $rows = [];   
+        $query = "SELECT $this->table_name.*, $data_to_collect FROM `$this->table_name` INNER JOIN `$table_to_join` ON `$this->table_name`.`$foreign_key` =  `$table_to_join`.`id` LIMIT $offset , $limit";
+        $statement = $this->pdo->query($query);
+        while($row = $statement->fetch())
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function save($data)
     {
         $query = "INSERT INTO `$this->table_name` (`". implode("`, `", $this->fillable) ."`) VALUES (";
