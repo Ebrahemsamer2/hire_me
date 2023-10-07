@@ -36,6 +36,13 @@ class Category extends DB\DBManager
         return $this->id ?? false;
     }
 
+    public function loadHomeCategories()
+    {
+        $query = "SELECT c.*, count(j.id) as jobsCount FROM `categories` c INNER JOIN jobs j ON c.id = j.category_id GROUP BY c.id LIMIT 0, 8";
+        $statement = $this->pdo->query($query);
+        return $statement->fetchAll();
+    }
+
     public function getId()
     {
         return $this->id;

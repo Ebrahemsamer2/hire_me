@@ -15,7 +15,7 @@ let home = {
                 <div class="single-services text-center mb-30">
                     <div class="services-cap">
                         <h5><a href="job_listing.php?category=${category.slug}">${category.name}</a></h5>
-                        <span>(0)</span>
+                        <span>(${category.jobsCount})</span>
                     </div>
                 </div>
             </div>
