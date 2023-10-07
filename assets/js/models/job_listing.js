@@ -2,6 +2,10 @@ let jobsManager = {
     filters: {},
     sidebarLocations: [],
     sidebarCategories: [],
+    loadingMore: false,
+    lastJobsCount: 0,
+    offset: 0,
+    limit: 50,
 
     init: () => {
         let current_url = window.location.href;
@@ -12,46 +16,59 @@ let jobsManager = {
     },
 
     load: () => {
-        let data = {'action': 'loadAll', 'filters': jobsManager.filters};
+        let data = {'action': 'loadAll', 'filters': jobsManager.filters, 'offset': jobsManager.offset};
         $.ajax({
             url: 'process/job.php',
             data: data,
             type: 'POST',
+            async: false,
             success: (response) => {
                 response = JSON.parse(response)
                 if(response.success)
                 {
+                    jobsManager.lastJobsCount = response.jobs.length;
                     jobsManager.sidebarLocations = response.locations;
                     jobsManager.sidebarCategories = response.categories;
                     jobsManager.drawJobs(response.jobs);
-                    jobsManager.populateSidebarFilters(() => {
-                        let category = getUrlParameter('category');
-                        let location = getUrlParameter('location');
+                    if(!jobsManager.loadingMore)
+                    {
+                        jobsManager.populateSidebarFilters(() => {
+                            let category = getUrlParameter('category');
+                            let location = getUrlParameter('location');
 
-                        $("select[name='category']").val(category ? category : 0);
-                        $("select[name='location']").val(location ? location.replaceAll("+", " ") : 0);
+                            $("select[name='category']").val(category ? category : 0);
+                            $("select[name='location']").val(location ? location.replaceAll("+", " ") : 0);
 
-                        let selected_job_natures = getUrlParameter('job_nature');
-                        if(selected_job_natures)
-                        {
-                            selected_job_natures = selected_job_natures.split(",");
-                            selected_job_natures.forEach((job_nature) => {
-                                $("input[name='job_nature'][value='"+ job_nature +"']").attr("checked", "checked");
-                            });
-                        }
+                            let selected_job_natures = getUrlParameter('job_nature');
+                            if(selected_job_natures)
+                            {
+                                selected_job_natures = selected_job_natures.split(",");
+                                selected_job_natures.forEach((job_nature) => {
+                                    $("input[name='job_nature'][value='"+ job_nature +"']").attr("checked", "checked");
+                                });
+                            }
 
-                        let selected_experiences = getUrlParameter('experience');
-                        if(selected_experiences)
-                        {
-                            selected_experiences = selected_experiences.split(",");
-                            selected_experiences.forEach((experience) => {
-                                $("input[name='experience'][value='"+ experience +"']").attr("checked", "checked");
-                            });
-                        }
-                    });
+                            let selected_experiences = getUrlParameter('experience');
+                            if(selected_experiences)
+                            {
+                                selected_experiences = selected_experiences.split(",");
+                                selected_experiences.forEach((experience) => {
+                                    $("input[name='experience'][value='"+ experience +"']").attr("checked", "checked");
+                                });
+                            }
+                        });
+                    }
                 }
             }
         });
+    },
+
+    loadMore: () => {
+        jobsManager.loadingMore = true;
+        jobsManager.offset += 50;
+        if(jobsManager.lastJobsCount == jobsManager.limit) {
+            jobsManager.load();
+        }
     },
 
     getFilters: (filters_url) => {
@@ -122,7 +139,11 @@ let jobsManager = {
             html += '</div>';
         }
 
-        $(".jobs-container").html(html);
+        if(jobsManager.loadingMore) {
+            $(".jobs-container").append(html);
+        } else {
+            $(".jobs-container").html(html);
+        }
         $(".count-job > span").html(jobs.length + " Jobs Found");
     },
 
@@ -137,6 +158,8 @@ let jobsManager = {
 
     applyJobActions: () => {
         $("select[name='category']").on("change", (e) => {
+            jobsManager.reset();
+
             let category = $(e.target).val();
             let current_url = window.location.href;
             appended_mark = "?";
@@ -164,6 +187,8 @@ let jobsManager = {
         });
 
         $("select[name='location']").on("change", (e) => {
+            jobsManager.reset();
+
             let location = $(e.target).val();
             let current_url = window.location.href;
             appended_mark = "?";
@@ -191,6 +216,8 @@ let jobsManager = {
         });
 
         $("input[name='job_nature']").on("change", (e) => {
+            jobsManager.reset();
+
             let current_url = window.location.href;
             appended_mark = "?";
             if(current_url.includes("?")) {
@@ -240,6 +267,8 @@ let jobsManager = {
         });
 
         $("input[name='experience']").on("change", (e) => {
+            jobsManager.reset();
+
             let current_url = window.location.href;
             appended_mark = "?";
             if(current_url.includes("?")) {
@@ -288,12 +317,19 @@ let jobsManager = {
             jobsManager.load();
         });
 
-        $(window).scroll(function() {
-            if($(window).scrollTop() + $(window).height() >= $(document).height()){
-                
+        $(window).scroll(function () {
+            let last_position = Math.round($(".jobs-container .single-job-items:last").position().top);
+            if ($(window).scrollTop() >= last_position + 200) {
+                jobsManager.loadMore();
             }
         });
     },
+
+    reset:() => {
+        jobsManager.offset = 0;
+        jobsManager.lastJobsCount = 0;
+        jobsManager.loadingMore = false;
+    }
 };
 
 $( document ).ready(function() {

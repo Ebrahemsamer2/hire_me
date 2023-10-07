@@ -9,9 +9,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if($action === 'loadAll')
     {
+        $offset = intval($_POST['offset']) ?? 0;
         $filters = isset($_POST['filters']) ? $_POST['filters'] : [];
         $response_data['success'] = 1;
-        $response_data['jobs'] = (new \Models\Job)->loadFilteredJobs($filters);
+        $response_data['jobs'] = (new \Models\Job)->loadFilteredJobs($filters, $offset);
 
         $categories = (new \Models\Category)->loadAll();
         if(count($categories)) {
