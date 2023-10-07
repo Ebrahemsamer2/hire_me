@@ -79,6 +79,13 @@
                                     onfocus="this.placeholder = ''" onblur="this.placeholder = 'Vacancy Number'" required
                                     class="single-input">
                             </div>
+
+                            <div class="mt-10">
+                                <input min="1" type="number" name="years_of_experience" placeholder="Years of Experience"
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Years of Experience'" required
+                                    class="single-input">
+                            </div>
+
                             <div class="mt-10">
                                 <input class="btn head-btn1" type="submit" value="Create Job" name="create_job"/>
                             </div>

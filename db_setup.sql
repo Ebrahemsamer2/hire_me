@@ -36,6 +36,7 @@ CREATE TABLE `hire_me`.`jobs` (
   `salary_to` INT(11) NULL,
   `job_nature` VARCHAR(20) NULL,
   `vacancy_number` INT(3) NULL,
+  `years_of_experience` VARCHAR(10) NOT NULL,
   `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

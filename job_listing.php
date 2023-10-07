@@ -61,15 +61,15 @@
                                         <h4>Job Type</h4>
                                     </div>
                                     <label class="container">Full Time
-                                        <input name="job_nature" type="checkbox" >
+                                        <input value='full-time' name="job_nature" type="checkbox" >
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">Part Time
-                                        <input name="job_nature" type="checkbox">
+                                        <input value='part-time' name="job_nature" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">Remote
-                                        <input name="job_nature" type="checkbox">
+                                        <input value='remote' name="job_nature" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -83,7 +83,6 @@
                                 <!-- Select job items start -->
                                 <div class="select-job-items2">
                                     <select class="form-control" name="location">
-                                        <option value="">Anywhere</option>
                                     </select>
                                 </div>
                                 <!--  Select job items End-->
@@ -93,19 +92,19 @@
                                         <h4>Experience</h4>
                                     </div>
                                     <label class="container">1-2 Years
-                                        <input name="experience" type="checkbox" >
+                                        <input value='1-2' name="experience" type="checkbox" >
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">2-3 Years
-                                        <input name="experience" type="checkbox">
+                                        <input value='2-3' name="experience" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">3-6 Years
-                                        <input name="experience" type="checkbox">
+                                        <input value='3-6' name="experience" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                     <label class="container">6-more..
-                                        <input name="experience" type="checkbox">
+                                        <input value='6-more' name="experience" type="checkbox">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -143,24 +142,6 @@
             </div>
         </div>
         <!-- Job List Area End -->
-        <!--Pagination Start  -->
-        <div class="pagination-area pb-115 text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="single-wrap d-flex justify-content-center">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-start">
-                                    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Pagination End  -->
         
     </main>
     <?php include("includes/footer.php"); ?>

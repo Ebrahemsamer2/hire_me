@@ -35,11 +35,12 @@ let job_form = {
         let required_knowledge = $("textarea[name='required_knowledge']").val().trim();
         let education_experience = $("textarea[name='education_experience']").val().trim();
         let vacancy_number = parseInt($("input[name='vacancy_number']").val().trim());
+        let years_of_experience = parseInt($("input[name='years_of_experience']").val().trim());
         let job_nature = $("select[name='job_nature']").val().trim();
         let salary_from = parseInt($("input[name='salary_from']").val().trim());
         let salary_to = parseInt($("input[name='salary_to']").val().trim());
         
-        if(!title || !description || !country || !city || !required_knowledge || !education_experience || !vacancy_number)
+        if(!title || !description || !country || !city || !required_knowledge || !education_experience || !vacancy_number || !years_of_experience)
         {
             message.show("All Fields are required.");
             return false;
@@ -67,6 +68,7 @@ let job_form = {
         data.required_knowledge = required_knowledge;
         data.education_experience = education_experience;
         data.vacancy_number = vacancy_number;
+        data.years_of_experience = years_of_experience;
         data.job_nature = job_nature;
         data.salary_from = salary_from;
         data.salary_to = salary_to;
