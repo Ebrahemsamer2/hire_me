@@ -70,7 +70,7 @@
                                         </a>
 
                                         <div class="dropdown-menu" aria-labelledby="user-dropdown">
-                                            <a class="dropdown-item" href="#">Profile</a>
+                                            <a class="dropdown-item" href="profile.php">Profile</a>
                                             <?php if($_SESSION['user']['type'] == 'employee'): ?>
                                                 <a class="dropdown-item" href="#">My Jobs</a>
                                             <?php endif; ?>

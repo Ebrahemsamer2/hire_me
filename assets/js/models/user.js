@@ -94,7 +94,6 @@ let user = {
 
         $("#logout").on("click", (e) => {
             e.preventDefault();
-            console.log("A");
             user.logout();
         });
     },

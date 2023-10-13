@@ -18,7 +18,8 @@ class User extends DB\DBManager
     protected $primary_col_name = 'id';
     protected $load_cols = ['email'];
 
-    protected $fillable = ['username', 'password', 'email', 'type', 'about_me', 'web'];
+    protected $fillable = ['username', 'password', 'email', 'type'];
+    protected $updatable = ['username', 'email', 'web', 'about_me'];
 
     public function __construct($load_data = [])
     {
@@ -52,6 +53,48 @@ class User extends DB\DBManager
             return true;
         }
         return false;
+    }
+
+    public function updateProfile()
+    {
+        $user_id = $this->update();
+        if($user_id)
+        {
+            Session::add('user', ['username' => $this->username, 'email' => $this->email, 'id' => $user_id, 'type' => $this->type]);
+            return true;
+        }
+        return false;
+    }
+
+    public function updatePassword($password)
+    {
+        $query = "UPDATE `$this->table_name` SET `password` = ? WHERE id = ?";
+        $statement = $this->pdo->prepare($query);
+        return $statement->execute([$this->password, $this->getId()]);
+    }
+
+    public function checkOldPassword($old_password)
+    {
+        $password_hash = $this->getPassword();
+        return password_verify($old_password, $password_hash);
+    }
+
+    public function checkPasswordStrength($password) {
+        // Define password strength requirements using regular expressions
+        $lower = preg_match('@[a-zA-Z]@', $password);
+        $upper = preg_match('@[A-Z]@', $password);
+        $number = preg_match('@[0-9]@', $password);
+        
+        // Define minimum length for the password
+        $minLength = 8;
+        $maxLength = 16;
+        
+        // Check if the password meets all the requirements
+        if ($lower && $upper && $number && strlen($password) >= $minLength && strlen($password) <= $maxLength) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function login()

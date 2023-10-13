@@ -68,6 +68,32 @@ class DBManager extends DBConnection
         }
         return false;
     }
+
+    public function update()
+    {
+        $query = "UPDATE `$this->table_name` SET";
+        if(count($this->updatable))
+        {
+            $data = [];
+            foreach($this->updatable as $index => $property)
+            {
+                $value = $this->$property;
+                $data [] = "$value";
+
+                if(count($this->updatable) - 1 === $index)
+                    $query .= " `$property` = ?";
+                else 
+                    $query .= " `$property` = ?, ";
+            }
+            $user_id = $this->getId();
+            $query .= "WHERE id = '$user_id'";
+            $statement = $this->pdo->prepare($query);
+            if($statement->execute($data)) {
+                return $user_id;
+            }
+        }
+        return false;
+    }
     
     public function loadBy($columns)
     {

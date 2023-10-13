@@ -43,3 +43,20 @@ let getUrlParameter = function getUrlParameter(sParam) {
     }
     return false;
 };
+
+let isHttpValid = (link) => {
+    try {
+        const newUrl = new URL(link);
+        return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
+    } catch (err) {
+        return false;
+    }
+}
+
+let isValidPassowrd = (input) => {
+    let password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+    if(input.match(password)) {
+        return true;
+    }
+    return false;
+}

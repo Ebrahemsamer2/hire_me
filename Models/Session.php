@@ -18,10 +18,14 @@ class Session
 
     public static function checkLogin()
     {
-        if(session_status() === PHP_SESSION_NONE) 
-            session_start();
-
+        self::start();
         return isset($_SESSION['user']);
+    }
+
+    public static function get($key)
+    {
+        self::start();
+        return $_SESSION[$key] ?: false;
     }
 
     public static function destroy()
