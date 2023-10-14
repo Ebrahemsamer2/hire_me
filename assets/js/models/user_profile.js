@@ -32,7 +32,15 @@ let userProfile = {
         $("#username").val(user.username);
         $("#email").val(user.email);
         $("#web").val(user.web);
-        $("#about_me").text(user.about_me);
+        $("#about_me").text(user.about_me); console.log(user.avatar);
+        if(user.avatar) {
+            $("img.avatar").attr("src", "assets/img/avatar/" + user.avatar);
+        }
+    },
+    
+    processAvatar: (avatar_name) => { 
+        $(".confirm-avatar-btn").addClass('d-none');
+        $("img.avatar").attr("src", "assets/img/avatar/" + avatar_name);
     },
 
     collectData: () => {
@@ -93,6 +101,37 @@ let userProfile = {
                     }
                 });
             }
+        });
+
+        $(".upload-avatar-btn").on("click", (e) => {
+            $("input[name='avatar']").click();
+        });
+
+        $("input[name='avatar']").on("change", (e) => {
+            $(".confirm-avatar-btn").removeClass('d-none');
+        });
+        
+        $(".confirm-avatar-btn").on("click", (e) => {
+            let avatar = $('input[name="avatar"]')[0].files[0];
+            let formData = new FormData();
+            formData.append('avatar', avatar);
+            formData.append('action', 'uploadAvatar');
+            
+            $.ajax({
+                url: 'process/user.php',
+                data: formData,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    response = JSON.parse(response)
+                    if(response.success)
+                    {
+                        userProfile.processAvatar(response.avatar_name);
+                    }
+                    message.show(response.message)
+                }
+            });
         });
     },
 };

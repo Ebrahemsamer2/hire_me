@@ -12,36 +12,24 @@ if(! \Models\Session::checkLogin()){
 
 <?php include("includes/header.php"); ?>
 
-<!-- Hero Area Start-->
-<div class="slider-area ">
-    <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/about.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="hero-cap text-center">
-                        <h2>Hi, <?php echo $_SESSION['user']['username']; ?></h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    <!-- Hero Area End -->
-<!-- ================ contact section start ================= -->
-<section class="contact-section">
+<section class="ptb-4 profile-section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <h2 class="contact-title"><?php echo $_SESSION['username'] ?? ''; ?></h2>
                 </div>
 
-                <div class="col-lg-3 offset-lg-1">
+                <div class="col-lg-3">
                     <div class="media contact-info">
-                        <img src="assets/img/user.jpg" alt="User Image" class="img-fluid">
+                        <img src="assets/img/user.jpg" alt="User Avatar" class="img-fluid avatar">
                     </div>
+
+                    <button class="mb-2 boxed-btn w-100 upload-avatar-btn">Upload Image</button>
+                    <button class="d-none boxed-btn w-100 confirm-avatar-btn">Confirm Image</button>
+                    <input class="d-none" type="file" name="avatar">
                 </div>
 
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <form class="form-contact profile_form" method="POST" id="profile_form" novalidate="novalidate">
 
                         <h4 class="mb-4">Basic Info</h4>

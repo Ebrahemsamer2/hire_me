@@ -30,6 +30,50 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         echo json_encode($response_data);
         exit;
     }
+    if($action === 'uploadAvatar')
+    {   
+        $user_session_id = \Models\Session::get('user')['id'];
+        $user_session_email = \Models\Session::get('user')['email'];
+
+        if(count($_FILES)){
+            $avatar = $_FILES['avatar'];
+            $avatar_path = $avatar['tmp_name'];
+            $avatar_type = explode("/", $avatar['type'])[1];
+            
+            if (exif_imagetype($avatar_path) > 3) {
+                $response_data['success'] = 0;
+                $response_data['message'] = "Only jpg, png, jpeg and gif are allowed!";
+                echo json_encode($response_data);
+                exit;
+            }
+
+            $avatar_name = "avatar-$user_session_id.$avatar_type";
+            if(! move_uploaded_file($avatar_path, "../assets/img/avatar/$avatar_name"))
+            {
+                $response_data['success'] = 0;
+                $response_data['message'] = "Upload has failed, Try again!";
+                echo json_encode($response_data);
+                exit;
+            }
+            // store image in user table
+            $user = new \Models\User([$user_session_email]);
+            $user->avatar = $avatar_name;
+            if(!$user->updateProfile())
+            {
+                $response_data['message'] = "Unkown Error";
+                $response_data['success'] = 0;
+                echo json_encode($response_data);
+                exit;
+            }
+
+            $response_data['message'] = "Your avatar has been updated";
+            $response_data['success'] = 1;
+            $response_data['avatar_name'] = $avatar_name;
+            echo json_encode($response_data);
+            exit;
+            
+        }
+    }
 
     if($action === 'saveProfile')
     {
@@ -77,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
         $user = new \Models\User([$session_email]);
-        if(! $user->checkOldPassword($old_password))
+        if($new_password && ! $user->checkOldPassword($old_password))
         {
             $response_data['success'] = 0;
             $response_data['message'] = "Wrong old password!";
@@ -85,7 +129,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
 
-        if(! $user->checkPasswordStrength($new_password))
+        if($new_password && ! $user->checkPasswordStrength($new_password))
         {
             $response_data['success'] = 0;
             $response_data['message'] = "Invalid new password!";
@@ -118,7 +162,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             }
         }
 
-        $response_data['message'] = "User info has been updated";
+        $response_data['message'] = "Your profile info has been updated";
         $response_data['success'] = 1;
         echo json_encode($response_data);
         exit;

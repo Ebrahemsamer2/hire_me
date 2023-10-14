@@ -6,6 +6,7 @@ CREATE TABLE `hire_me`.`users` (
   `type` VARCHAR(20) NOT NULL,
   `about_me` TEXT NULL,
   `web` VARCHAR(100) NULL,
+  `avatar` VARCHAR(255) NULL,
   `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
