@@ -12,6 +12,7 @@ class User extends DB\DBManager
     public string $about_me;
     public string $web;
     public string $avatar;
+    public string $resume;
     public int $created_timestamp;
     public string $updated_timestamp;
 
@@ -20,7 +21,7 @@ class User extends DB\DBManager
     protected $load_cols = ['email'];
 
     protected $fillable = ['username', 'password', 'email', 'type'];
-    protected $updatable = ['username', 'email', 'web', 'about_me', 'avatar'];
+    protected $updatable = ['username', 'email', 'web', 'about_me', 'avatar', 'resume'];
 
     public function __construct($load_data = [])
     {
@@ -37,6 +38,7 @@ class User extends DB\DBManager
         $this->about_me = $row->about_me ?? '';
         $this->web = $row->web ?? '';
         $this->avatar = $row->avatar ?? '';
+        $this->resume = $row->resume ?? '';
     }
 
     public function isEmployer()

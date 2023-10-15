@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $avatar = $_FILES['avatar'];
             $avatar_path = $avatar['tmp_name'];
             $avatar_type = explode("/", $avatar['type'])[1];
-            
+
             if (exif_imagetype($avatar_path) > 3) {
                 $response_data['success'] = 0;
                 $response_data['message'] = "Only jpg, png, jpeg and gif are allowed!";
@@ -72,6 +72,61 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             echo json_encode($response_data);
             exit;
             
+        }
+    }
+
+    
+    if($action === 'uploadResume')
+    {   
+        $user_session_id = \Models\Session::get('user')['id'];
+        $user_session_email = \Models\Session::get('user')['email'];
+
+        if(count($_FILES)){
+            $resume = $_FILES['resume'];
+            $resume_path = $resume['tmp_name'];
+            $resume_type = explode("/", $resume['type'])[1];
+            $resume_size = $resume['size'];
+            $max_resume_size = 5 * 1000 * 1000;
+
+            if ($resume_size > $max_resume_size ) {
+                $response_data['success'] = 0;
+                $response_data['message'] = "File is too large, 5M is max size!";
+                echo json_encode($response_data);
+                exit;
+            }
+
+            if (! in_array($resume_type, ['pdf', 'docx'])) {
+                $response_data['success'] = 0;
+                $response_data['message'] = "Only pdf and docx resumes are allowed!";
+                echo json_encode($response_data);
+                exit;
+            }
+
+            $user = new \Models\User([$user_session_email]);
+            $resume_name = $user->username . "-resume-$user_session_id.$resume_type";
+
+            if(! move_uploaded_file($resume_path, "../assets/resumes/$resume_name"))
+            {
+                $response_data['success'] = 0;
+                $response_data['message'] = "Upload has failed, Try again!";
+                echo json_encode($response_data);
+                exit;
+            }
+           
+            $user->resume = $resume_name;
+            if(!$user->updateProfile())
+            {
+                $response_data['message'] = "Unkown Error";
+                $response_data['success'] = 0;
+                echo json_encode($response_data);
+                exit;
+            }
+
+            $response_data['message'] = "Your resume has been updated";
+            $response_data['success'] = 1;
+            $response_data['resume_name'] = $resume_name;
+            echo json_encode($response_data);
+            exit;
         }
     }
 

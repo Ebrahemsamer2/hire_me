@@ -84,6 +84,20 @@ if(! \Models\Session::checkLogin()){
                                 </div>
                             </div>
                         </div>
+
+                        <h4 class="mb-4">Resume</h4>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="mb-2 genric-btn info w-100 upload-resume-btn">Upload Your Resume</button>
+
+                                <span id="resume_rules" class="d-none mb-4 small text-info">Your resume can be downloaded only by companies that you applied in their jobs.</span>
+                                <button class="d-none genric-btn info confirm-resume-btn">Confirm and Upload</button>
+                                
+                                <input type="file" name="resume" class="d-none">
+                            </div>
+                        </div>
+
                         <div class="form-group mt-3">
                             <button type="submit" class="button save boxed-btn">Save</button>
                         </div>
@@ -93,7 +107,7 @@ if(! \Models\Session::checkLogin()){
             </div>
         </div>
     </section>
-<!-- ================ contact section end ================= -->
+    
 <?php include "includes/footer.php"; ?>
 <script src="./assets/js/models/user_profile.js"></script>
 

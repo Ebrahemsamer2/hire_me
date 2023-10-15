@@ -34,7 +34,7 @@ let home = {
                 response = JSON.parse(response)
                 if(response.success)
                 {
-                    let jobs = response.jobs; console.log(jobs);
+                    let jobs = response.jobs;
                     let html = ``;
                     for(let i = 0; i < jobs.length; ++i) {
                         let job = jobs[i];

@@ -7,6 +7,7 @@ CREATE TABLE `hire_me`.`users` (
   `about_me` TEXT NULL,
   `web` VARCHAR(100) NULL,
   `avatar` VARCHAR(255) NULL,
+  `resume` VARCHAR(255) NULL,
   `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

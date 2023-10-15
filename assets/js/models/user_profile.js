@@ -33,14 +33,26 @@ let userProfile = {
         $("#email").val(user.email);
         $("#web").val(user.web);
         $("#about_me").text(user.about_me); console.log(user.avatar);
+        
         if(user.avatar) {
             $("img.avatar").attr("src", "assets/img/avatar/" + user.avatar);
+        }
+        if(user.resume) {
+            let resume_path = "assets/resumes/" + user.resume;
+            let html = "<p class='mb-2'>Download <a class='text-info' href='"+ resume_path +"'>My Resume</a></p>";
+            $("button.upload-resume-btn").parent().prepend(html);
         }
     },
     
     processAvatar: (avatar_name) => { 
         $(".confirm-avatar-btn").addClass('d-none');
         $("img.avatar").attr("src", "assets/img/avatar/" + avatar_name);
+    },
+
+    processResume: (resume_name) => { 
+        $(".confirm-resume-btn").addClass('d-none');
+        $("#resume_rules").addClass('d-none');
+        console.log(resume_name);
     },
 
     collectData: () => {
@@ -107,6 +119,16 @@ let userProfile = {
             $("input[name='avatar']").click();
         });
 
+        $(".upload-resume-btn").on("click", (e) => {
+            e.preventDefault();
+            $("input[name='resume']").click();
+        });
+
+        $("input[name='resume']").on("change", (e) => {
+            $("#resume_rules").removeClass('d-none');
+            $(".confirm-resume-btn").removeClass('d-none');
+        });
+
         $("input[name='avatar']").on("change", (e) => {
             $(".confirm-avatar-btn").removeClass('d-none');
         });
@@ -128,6 +150,30 @@ let userProfile = {
                     if(response.success)
                     {
                         userProfile.processAvatar(response.avatar_name);
+                    }
+                    message.show(response.message)
+                }
+            });
+        });
+
+        $(".confirm-resume-btn").on("click", (e) => {
+            e.preventDefault();
+            let resume = $('input[name="resume"]')[0].files[0];
+            let formData = new FormData();
+            formData.append('resume', resume);
+            formData.append('action', 'uploadResume');
+            
+            $.ajax({
+                url: 'process/user.php',
+                data: formData,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    response = JSON.parse(response)
+                    if(response.success)
+                    {
+                        userProfile.processResume(response.resume_name);
                     }
                     message.show(response.message)
                 }
