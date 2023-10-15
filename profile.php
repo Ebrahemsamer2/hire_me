@@ -87,16 +87,24 @@ if(! \Models\Session::checkLogin()){
 
                         <h4 class="mb-4">Resume</h4>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <button class="mb-2 genric-btn info w-100 upload-resume-btn">Upload Your Resume</button>
+                        <?php if(\Models\Session::get('user')['type'] == 'employee'): ?>
 
-                                <span id="resume_rules" class="d-none mb-4 small text-info">Your resume can be downloaded only by companies that you applied in their jobs.</span>
-                                <button class="d-none genric-btn info confirm-resume-btn">Confirm and Upload</button>
-                                
-                                <input type="file" name="resume" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button class="mb-2 genric-btn info w-100 upload-resume-btn">Upload Your Resume</button>
+
+                                    <span id="resume_rules" class="d-none mb-4 small text-info">Your resume can be downloaded only by companies that you applied in their jobs.</span>
+                                    <button class="d-none genric-btn info confirm-resume-btn">Confirm and Upload</button>
+                                    
+                                    <input type="file" name="resume" class="d-none">
+                                </div>
                             </div>
-                        </div>
+
+                        <?php else: ?>
+                            
+                            <p class="text-info">Resume section is available for employees.</p>
+                         
+                        <?php endif; ?>
 
                         <div class="form-group mt-3">
                             <button type="submit" class="button save boxed-btn">Save</button>
