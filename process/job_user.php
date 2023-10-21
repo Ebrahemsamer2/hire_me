@@ -7,6 +7,48 @@ $response_data = [];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
+    if($action == 'loadMyJobs')
+    {
+        $response_data['success'] = 0;
+        $user_id = \Models\Session::get('user')['id'] ?? 0;
+
+        if(!$user_id)
+        {
+            $response_data['message'] = 'Invalid User';
+            echo json_encode($response_data);
+            exit;
+        }
+
+        $job_user = new \Models\JobUser();
+        $myJobs = $job_user->loadJobs($user_id);
+        
+        $response_data['success'] = 1;
+        $response_data['myJobs'] = $myJobs;
+        echo json_encode($response_data);
+        exit;
+    }
+
+    if($action == 'loadAuthorJobs')
+    {
+        $response_data['success'] = 0;
+        $user_id = \Models\Session::get('user')['id'] ?? 0;
+
+        if(!$user_id)
+        {
+            $response_data['message'] = 'Invalid User';
+            echo json_encode($response_data);
+            exit;
+        }
+
+        $job_user = new \Models\JobUser();
+        $myJobs = $job_user->loadAuthorJobs($user_id);
+        
+        $response_data['success'] = 1;
+        $response_data['myJobs'] = $myJobs;
+        echo json_encode($response_data);
+        exit;
+    }
+
     if($action == 'apply')
     {
         $response_data['success'] = 0;

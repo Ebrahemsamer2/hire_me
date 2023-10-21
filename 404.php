@@ -1,4 +1,11 @@
-<?php include("includes/header.php"); ?>
+<?php 
+
+include "init.php";
+$main_title = "Hire Me | Sorry We can not find your page";
+
+include("includes/header.php"); 
+?>
+
 <main>
     <div class="row justify-content-center m-4">
         <div class="col-md-12 col-sm-12">

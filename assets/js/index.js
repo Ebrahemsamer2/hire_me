@@ -4,7 +4,39 @@ let home = {
         category.loadAll((response) => {
             home.categories = response.categories;
             home.populateCategories();
-            home.loadForYouJobs();
+            home.loadForYouJobs((jobs) => {
+                let html = ``;
+                jobs.forEach((job) => {
+                    let logo = job.avatar ? "assets/img/avatar/" + job.avatar : "assets/img/user.jpg";
+                    let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
+                    let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
+                    let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
+                    
+                    html += `
+                        <div class="single-job-items mb-30">
+                            <div class="job-items">
+                                <div class="company-img">
+                                    <a href="job_details.php">
+                                    <img width="100" src="${logo}" alt=""></a>
+                                </div>
+                                <div class="job-tittle">
+                                    <a href="job_details.php"><h4>Digital Marketer</h4></a>
+                                    <ul>
+                                        <li>${job.username}</li>
+                                        <li><i class="fas fa-map-marker-alt"></i>${job.location}</li>
+                                        <li>${salary_from} - ${salary_to}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="items-link f-right">
+                                <a href="job_details.php">${job.job_nature}</a>
+                                <span>${created_at}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                $(".featured-jobs").html(html);
+            });
         });
     },
     populateCategories: () => {
@@ -24,7 +56,7 @@ let home = {
         $(".home-categories").html(html);
     },
 
-    loadForYouJobs: () => {
+    loadForYouJobs: (callback) => {
         let data = {'action': 'loadForYouJobs'};
         $.ajax({
             url: 'process/job.php',
@@ -34,39 +66,7 @@ let home = {
                 response = JSON.parse(response)
                 if(response.success)
                 {
-                    let jobs = response.jobs;
-                    let html = ``;
-                    for(let i = 0; i < jobs.length; ++i) {
-                        let job = jobs[i];
-
-                        let logo = "assets/img/icon/job-list4.png";
-                        let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
-                        let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
-                        let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
-                        
-                        html += `
-                            <div class="single-job-items mb-30">
-                                <div class="job-items">
-                                    <div class="company-img">
-                                        <a href="job_details.php"><img src="${logo}" alt=""></a>
-                                    </div>
-                                    <div class="job-tittle">
-                                        <a href="job_details.php"><h4>Digital Marketer</h4></a>
-                                        <ul>
-                                            <li>${job.username}</li>
-                                            <li><i class="fas fa-map-marker-alt"></i>${job.location}</li>
-                                            <li>${salary_from} - ${salary_to}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="items-link f-right">
-                                    <a href="job_details.php">${job.job_nature}</a>
-                                    <span>${created_at}</span>
-                                </div>
-                            </div>
-                        `;
-                    }
-                    $(".featured-jobs").html(html);
+                    callback(response.jobs);
                 }
             }
         });

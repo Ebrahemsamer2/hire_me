@@ -37,6 +37,28 @@ class JobUser extends DB\DBManager
         return $this->id ?? false;
     }
 
+    public function loadJobs($user_id)
+    {
+        $query = "SELECT ju.user_id, ju.job_id, ju.status , u.username, u.avatar, j.* FROM job_user ju 
+        LEFT JOIN jobs j ON ju.job_id = j.id 
+        LEFT JOIN users u ON j.employer_id = u.id
+        WHERE ju.user_id = ?";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([$user_id]);
+        return $statement->fetchAll();
+    }
+
+    public function loadAuthorJobs($user_id)
+    {
+        $query = "SELECT u.username, u.avatar, j.* FROM jobs j 
+        INNER JOIN users u ON u.id = j.employer_id 
+        WHERE j.employer_id = ? AND j.status = 'opened' ORDER BY j.id DESC";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([$user_id]);
+
+        return $statement->fetchAll();
+    }
+    
     public function updateStatus()
     {
         

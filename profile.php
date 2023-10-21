@@ -12,13 +12,9 @@ if(! \Models\Session::checkLogin()){
 
 <?php include("includes/header.php"); ?>
 
-<section class="ptb-4 profile-section">
+<section class="ptb-4 profile-section mt-4">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <h2 class="contact-title"><?php echo $_SESSION['username'] ?? ''; ?></h2>
-                </div>
-
                 <div class="col-lg-3">
                     <div class="media contact-info">
                         <img src="assets/img/user.jpg" alt="User Avatar" class="img-fluid avatar">

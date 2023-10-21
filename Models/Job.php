@@ -17,6 +17,7 @@ class Job extends DB\DBManager
     public string $job_nature;
     public string $vacancy_number;
     public string $years_of_experience;
+    public string $status = 'opened';
 
     public int $created_timestamp;
     public int $updated_timestamp;
@@ -48,6 +49,7 @@ class Job extends DB\DBManager
         $this->salary_to = $row->salary_to ?? 0;
         $this->vacancy_number = $row->vacancy_number ?? 0;
         $this->years_of_experience = $row->years_of_experience ?? 0;
+        $this->status = $row->status ?? 'opened';
     }
 
     public function getJobNatures()
@@ -69,7 +71,7 @@ class Job extends DB\DBManager
 
     public function loadForYouJobs()
     {
-        $query = "SELECT u.username, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id LIMIT 0, 5";
+        $query = "SELECT u.username, u.avatar, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id LIMIT 0, 5";
         $statement = $this->pdo->query($query);
         return $statement->fetchAll();
     }
@@ -107,7 +109,7 @@ class Job extends DB\DBManager
             $query .= " AND years_of_experience IN ('$experiences_imploded') ";
         }
 
-        $query .= " LIMIT $offset, $limit";
+        $query .= " ORDER BY j.id DESC LIMIT $offset, $limit";
         if(count($parameters)) {
             $statement = $this->pdo->prepare($query);
             $statement->execute($parameters);
