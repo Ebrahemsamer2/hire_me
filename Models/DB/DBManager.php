@@ -85,11 +85,11 @@ class DBManager extends DBConnection
                 else 
                     $query .= " `$property` = ?, ";
             }
-            $user_id = $this->getId();
-            $query .= "WHERE id = '$user_id'";
+            $primary_id = $this->getId();
+            $query .= "WHERE id = '$primary_id'";
             $statement = $this->pdo->prepare($query);
             if($statement->execute($data)) {
-                return $user_id;
+                return $primary_id;
             }
         }
         return false;

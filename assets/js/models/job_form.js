@@ -1,30 +1,81 @@
 let job_form = {
     countries: [],
+    category_id: 0,
+    location: '',
+    slug: '',
 
     init: () => {
-        job_form.load();
+        if(typeof slug != undefined && slug){
+            job_form.slug = slug;
+        }
+        if(typeof category_id != undefined && category_id){
+            job_form.category_id = category_id;
+        }
+        if(typeof job_location != undefined && job_location){
+            job_form.location = job_location;
+        }
+
+        job_form.loadCountries(() => {
+            job_form.populateCountries();
+        });
+        category.loadAll((response) => {
+            if(response.success && typeof response.categories != undefined && response.categories.length) {
+                job_form.populateCategories(response.categories);
+            }
+        });
         job_form.applyActions();
     },
 
-    load: () => {
+    loadCountries: (callback) => {
         $.ajax({
             url: "https://countriesnow.space/api/v0.1/countries",
             type: 'GET',
             success: (response) => {
                 if(!response.error)
                 {
-                    let countries = job_form.countries = response.data;
-                    let html = "<option value='0'>Country</option>";
-                    for(let index in countries)
-                    {
-                        let country = countries[index];
-                        html += "<option value='"+ country.country +"'>"+ country.country +"</option>";
-                    }
-                    $("select[name='country']").html(html);
+                    job_form.countries = response.data;
+                    callback();
                 }
             }
         });
     },
+
+    populateCountries: () => {
+        let html = "<option value='0'>Country</option>";
+        for(let index in job_form.countries)
+        {
+            let country = job_form.countries[index];
+            html += "<option value='"+ country.country +"'>"+ country.country +"</option>";
+        }
+        $("select[name='country']").html(html);
+        
+        if(job_form.location) {
+            let country = job_form.location ? job_form.location.split("-") : [];
+            let city = '';
+            if(country.length) {
+                city = country[1].trim();
+                country = country[0].trim();
+                $("select[name='country']").val(country);
+                job_form.populateCities(country, () => {
+                    $("select[name='city']").val(city);
+                });
+            }
+        }
+    }, 
+
+    populateCategories: (categories) => {
+        let html = "<option value='0'>All Categories</option>";
+        for(let index in categories)
+        {
+            let category = categories[index];
+            html += "<option value='"+ category.id +"'>"+ category.name +"</option>";
+        }
+        $("select[name='category']").html(html);
+
+        if(job_form.category_id) {
+            $("select[name='category']").val(job_form.category_id);
+        }
+    }, 
 
     collectData: () => {
         let data = {};
@@ -35,12 +86,14 @@ let job_form = {
         let required_knowledge = $("textarea[name='required_knowledge']").val().trim();
         let education_experience = $("textarea[name='education_experience']").val().trim();
         let vacancy_number = parseInt($("input[name='vacancy_number']").val().trim());
-        let years_of_experience = parseInt($("input[name='years_of_experience']").val().trim());
+        let years_of_experience = $("select[name='years_of_experience']").val().trim();
         let job_nature = $("select[name='job_nature']").val().trim();
         let salary_from = parseInt($("input[name='salary_from']").val().trim());
         let salary_to = parseInt($("input[name='salary_to']").val().trim());
+        let category_id = parseInt($("select[name='category']").val().trim());
         
-        if(!title || !description || !country || !city || !required_knowledge || !education_experience || !vacancy_number || !years_of_experience)
+        if(!title || !description || !country || !city || !required_knowledge || 
+            !education_experience || !vacancy_number || !years_of_experience || !category_id)
         {
             message.show("All Fields are required.");
             return false;
@@ -69,6 +122,7 @@ let job_form = {
         data.education_experience = education_experience;
         data.vacancy_number = vacancy_number;
         data.years_of_experience = years_of_experience;
+        data.category_id = category_id;
         data.job_nature = job_nature;
         data.salary_from = salary_from;
         data.salary_to = salary_to;
@@ -78,13 +132,15 @@ let job_form = {
     save: () => {
         let data = job_form.collectData();
         data.action = 'save';
+        if(typeof slug != undefined && slug) {
+            data.slug = slug;
+        }
         $.ajax({
             url: 'process/job.php',
             data: data,
             type: 'POST',
             success: (response) => {
                 response = JSON.parse(response);
-                console.log(response);
                 if(response.success)
                 {
                     message.show(response.message)
@@ -96,23 +152,32 @@ let job_form = {
         });
     },
 
+    populateCities: (selected_country, callback) => {
+        let country = job_form.countries.filter((country) => {
+            return country.country == selected_country;
+        })[0];
+
+        let cities = country.cities;
+        let html = "<option value='0'>City</option>";
+        for(let index in cities)
+        {
+            let city = cities[index];
+            html += "<option value='"+ city +"'>"+ city +"</option>";
+        }
+        $("select[name='city']").html(html);
+
+        if(typeof callback != undefined && callback) {
+            callback();
+        }
+    },
+
     applyActions: () => {
         $("select[name='country']").on("change", (e) => {
             let country_selected = $(e.target).val();
-            let country = job_form.countries.filter((country) => {
-                return country.country == country_selected;
-            })[0];
-            let cities = country.cities;
-            let html = "<option value='0'>City</option>";
-            for(let index in cities)
-            {
-                let city = cities[index];
-                html += "<option value='"+ city +"'>"+ city +"</option>";
-            }
-            $("select[name='city']").html(html);
+            job_form.populateCities(country_selected);
         });
 
-        $("input[name='create_job']").on("click", (e) => {
+        $("input[name='save_job']").on("click", (e) => {
             e.preventDefault();
             job_form.save();
         });

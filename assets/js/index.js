@@ -11,7 +11,7 @@ let home = {
                     let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
                     let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
                     let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
-                    
+                    let job_nature = formatJobNature(job.job_nature);
                     html += `
                         <div class="single-job-items mb-30">
                             <div class="job-items">
@@ -29,7 +29,7 @@ let home = {
                                 </div>
                             </div>
                             <div class="items-link f-right">
-                                <a href="job_details.php">${job.job_nature}</a>
+                                <a href="job_details.php">${job_nature}</a>
                                 <span>${created_at}</span>
                             </div>
                         </div>

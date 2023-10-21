@@ -44,6 +44,15 @@ let getUrlParameter = function getUrlParameter(sParam) {
     return false;
 };
 
+let formartJobNature = (job_nature) => {
+    let job_natures = job_nature.split('-');
+    let result = '';
+    job_natures.forEach((job_nature) => {
+        result += job_nature[0].toUpperCase() + job_nature.substring(1) + " ";
+    });
+    return result;
+};
+
 let isHttpValid = (link) => {
     try {
         const newUrl = new URL(link);

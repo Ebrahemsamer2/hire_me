@@ -82,6 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         $response_data['success'] = 0;
 
+        $slug = filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
         $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
         $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
         $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
@@ -90,13 +91,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $education_experience = filter_input(INPUT_POST, 'education_experience', FILTER_SANITIZE_STRING);
         $vacancy_number = (int) filter_input(INPUT_POST, 'vacancy_number', FILTER_SANITIZE_STRING);
         $years_of_experience = filter_input(INPUT_POST, 'years_of_experience', FILTER_SANITIZE_STRING);
+        $category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_NUMBER_INT);
         
         $job_nature = filter_input(INPUT_POST, 'job_nature', FILTER_SANITIZE_STRING);
         $salary_from = (int) filter_input(INPUT_POST, 'salary_from', FILTER_SANITIZE_STRING);
         $salary_to = (int) filter_input(INPUT_POST, 'salary_to', FILTER_SANITIZE_STRING);
 
         if(! $title || ! $description || ! $country || ! $city || ! $required_knowledge || 
-        ! $education_experience || ! $vacancy_number || ! $years_of_experience || ! $salary_from || ! $salary_to || ! $job_nature)
+        ! $education_experience || ! $vacancy_number || !$category_id || ! $years_of_experience || ! $salary_from || ! $salary_to || ! $job_nature)
         {
             $response_data['message'] = 'Invalid job data';
             echo json_encode($response_data);
@@ -124,7 +126,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             exit;
         }
 
-        $job = new \Models\Job;
+        $job = new \Models\Job([$slug]);
         if(!in_array($job_nature, $job->getJobNatures()) )
         {
             $response_data['message'] = 'Invalid Job Nature.';
@@ -138,8 +140,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             echo json_encode($response_data);
             exit;
         }
-        
-        $job->slug = implode('-', explode(' ', $title)) . '-' . time();
+        if(! $job->getId()) {
+            $job->slug = implode('-', explode(' ', $title)) . '-' . time();
+        }
+
         $job->title = $title;
         $job->description = $description;
         $job->location = $country . ' - ' . $city;
@@ -147,6 +151,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $job->education_experience = $education_experience;
         $job->vacancy_number = $vacancy_number;
         $job->years_of_experience = $years_of_experience;
+        $job->category_id = $category_id;
         $job->job_nature = $job_nature;
         $job->salary_from = $salary_from;
         $job->salary_to = $salary_to;

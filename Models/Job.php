@@ -29,6 +29,9 @@ class Job extends DB\DBManager
     protected $fillable = ['slug', 'title', 'description', 'employer_id', 'category_id', 'required_knowledge', 'education_experience', 
     'location', 'job_nature', "salary_from", "salary_to", "vacancy_number", "years_of_experience"];
 
+    protected $updatable = ['slug', 'title', 'description', 'category_id', 'required_knowledge', 'education_experience', 
+    'location', 'job_nature', "salary_from", "salary_to", "vacancy_number", "years_of_experience"];
+
     public function __construct($load_data = [])
     {
         parent::__construct($load_data);
@@ -84,6 +87,12 @@ class Job extends DB\DBManager
         return $statement->fetchAll();
     }
 
+    public function checkAuthor()
+    {
+        $user_id = \Models\Session::get('user')['id'];
+        return $this->employer_id == $user_id;
+    }
+
     public function loadFilteredJobs($filters = [], $offset = 0, $limit = 50)
     {
         $query = "SELECT u.username, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id WHERE 1 ";
@@ -129,8 +138,13 @@ class Job extends DB\DBManager
 
     public function saveJob()
     {
-        $data = [$this->slug, $this->title, $this->description, $_SESSION['user']['id'], $this->required_knowledge, 
-        $this->education_experience, $this->location, $this->job_nature, $this->salary_from, $this->salary_to, $this->vacancy_number, $this->years_of_experience];
+        if($this->getId()){
+            $this->updated_timestamp = time();
+            return $this->update();
+        }
+        $data = [$this->slug, $this->title, $this->description, $_SESSION['user']['id'], $this->category_id, $this->required_knowledge, 
+        $this->education_experience, $this->location, $this->job_nature, $this->salary_from, $this->salary_to, 
+        $this->vacancy_number, $this->years_of_experience];
         $this->id = $this->save($data);
         return $this->id ?? false;
     }
