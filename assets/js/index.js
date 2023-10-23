@@ -16,11 +16,11 @@ let home = {
                         <div class="single-job-items mb-30">
                             <div class="job-items">
                                 <div class="company-img">
-                                    <a href="job_details.php">
+                                    <a href="job_details.php?slug=${job.slug}">
                                     <img width="100" src="${logo}" alt=""></a>
                                 </div>
                                 <div class="job-tittle">
-                                    <a href="job_details.php"><h4>Digital Marketer</h4></a>
+                                    <a href="job_details.php?slug=${job.slug}"><h4>${job.title}</h4></a>
                                     <ul>
                                         <li>${job.username}</li>
                                         <li><i class="fas fa-map-marker-alt"></i>${job.location}</li>
@@ -29,7 +29,7 @@ let home = {
                                 </div>
                             </div>
                             <div class="items-link f-right">
-                                <a href="job_details.php">${job_nature}</a>
+                                <a href="job_details.php?slug=${job.slug}">${job_nature}</a>
                                 <span>${created_at}</span>
                             </div>
                         </div>

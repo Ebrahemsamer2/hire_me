@@ -44,7 +44,7 @@ let getUrlParameter = function getUrlParameter(sParam) {
     return false;
 };
 
-let formartJobNature = (job_nature) => {
+let formatJobNature = (job_nature) => {
     let job_natures = job_nature.split('-');
     let result = '';
     job_natures.forEach((job_nature) => {

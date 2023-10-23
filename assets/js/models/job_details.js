@@ -32,7 +32,7 @@ let job = {
 
 
     drawJob: (jobObj) => {
-        let company_image_src = "assets/img/icon/job-list1.png";
+        let company_image_src = jobObj.employer.avatar ? "assets/img/avatar" + jobObj.employer.avatar : "assets/img/user.jpg";
         let username = jobObj.employer.username;
         let web = jobObj.employer.web;
         let email = jobObj.employer.email;
@@ -65,7 +65,7 @@ let job = {
         $(".post-details3 ul li.date > span").text(posted_date);
         $(".post-details3 ul li.location > span").text(location);
         $(".post-details3 ul li.vacancy > span").text(vacancy_number);
-        $(".post-details3 ul li.job_nature > span").text(job_nature);
+        $(".post-details3 ul li.job_nature > span").text( formatJobNature(job_nature));
         $(".post-details3 ul li.salary > span").text(salary);
 
         // post-details4

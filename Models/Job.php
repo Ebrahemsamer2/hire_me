@@ -87,6 +87,14 @@ class Job extends DB\DBManager
         return $statement->fetchAll();
     }
 
+    public function loadAuthor()
+    {
+        $id = $this->getId();
+        $query = "SELECT u.username, u.avatar, u.about_me, u.resume, ju.* FROM job_user ju INNER JOIN users u ON ju.user_id = u.id WHERE ju.job_id = $id";
+        $statement = $this->pdo->query($query);
+        return $statement->fetchAll();
+    }
+
     public function checkAuthor()
     {
         $user_id = \Models\Session::get('user')['id'];
