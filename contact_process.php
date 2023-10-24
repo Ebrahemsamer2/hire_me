@@ -1,11 +1,13 @@
 <?php
+    include_once "init.php";
+	
+	$contact = new \Models\Contact;
 
-    $to = "rockybd1995@gmail.com";
+    $to = "contact@hireMe.com";
     $from = $_REQUEST['email'];
     $name = $_REQUEST['name'];
     $subject = $_REQUEST['subject'];
-    $number = $_REQUEST['number'];
-    $cmessage = $_REQUEST['message'];
+    $message = $_REQUEST['message'];
 
     $headers = "From: $from";
 	$headers = "From: " . $from . "\r\n";
@@ -15,8 +17,8 @@
 
     $subject = "You have a message from your Bitmap Photography.";
 
-    $logo = 'img/logo.png';
-    $link = '#';
+    $logo = 'img/logo/logo.png';
+    $link = 'hire_me.com';
 
 	$body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Express Mail</title></head><body>";
 	$body .= "<table style='width: 100%;'>";
@@ -26,12 +28,16 @@
 	$body .= "<td style='border:none;'><strong>Name:</strong> {$name}</td>";
 	$body .= "<td style='border:none;'><strong>Email:</strong> {$from}</td>";
 	$body .= "</tr>";
-	$body .= "<tr><td style='border:none;'><strong>Subject:</strong> {$csubject}</td></tr>";
+	$body .= "<tr><td style='border:none;'><strong>Subject:</strong> {$subject}</td></tr>";
 	$body .= "<tr><td></td></tr>";
-	$body .= "<tr><td colspan='2' style='border:none;'>{$cmessage}</td></tr>";
+	$body .= "<tr><td colspan='2' style='border:none;'>{$message}</td></tr>";
 	$body .= "</tbody></table>";
 	$body .= "</body></html>";
-
-    $send = mail($to, $subject, $body, $headers);
+	
+	if($contact->save([$name, $from, $subject, $message]))
+	{
+		// This mail function will not be working on local
+		// $send = mail($to, $subject, $body, $headers);
+	}    
 
 ?>

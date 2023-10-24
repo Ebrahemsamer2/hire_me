@@ -1,3 +1,8 @@
+<?php
+    include "init.php";
+    $main_title = "Hire Me | Contact With Us.";
+?>
+
 <?php include("includes/header.php"); ?>
 
 <!-- Hero Area Start-->
@@ -23,7 +28,7 @@
                     <h2 class="contact-title">Get in Touch</h2>
                 </div>
                 <div class="col-lg-8">
-                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <form method="POST" class="form-contact contact_form" action="contact_process.php" id="contactForm" novalidate="novalidate">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
@@ -45,6 +50,13 @@
                                     <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject">
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea rows="3" class="form-control" name="message" id="contact-message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder="Enter Message"></textarea>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="form-group mt-3">
                             <button type="submit" class="button button-contactForm boxed-btn">Send</button>

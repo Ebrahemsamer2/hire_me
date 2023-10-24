@@ -56,3 +56,13 @@ CREATE TABLE `job_user` (
 
 
 ALTER TABLE `hire_me`.`job_user` ADD UNIQUE (`job_id`, `user_id`);
+
+CREATE TABLE `hire_me`.`contacts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `subject` VARCHAR(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`);
