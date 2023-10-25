@@ -38,6 +38,26 @@ let home = {
                 $(".featured-jobs").html(html);
             });
         });
+
+        home.applyActions();
+    },
+
+    applyActions: () => {
+        $("#find-job").on("click", (e) => {
+            e.preventDefault();
+
+            let job_title = $("input[name='title']").val();
+            let job_location = $("select[name='location']").val();
+            if(job_title && job_location){
+                location.href=`job_listing.php?title=${job_title}&location=${job_location}`;
+            } else if (job_title) {
+                location.href=`job_listing.php?title=${job_title}`;
+            } else if(job_location) {
+                location.href=`job_listing.php?location=${job_location}`;
+            } else {
+                message.show("Invalid Data");
+            }
+        });
     },
     populateCategories: () => {
         let html = '';

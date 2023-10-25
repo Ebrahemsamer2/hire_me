@@ -38,3 +38,24 @@
 {
     color: #22cd22;
 }
+form.search-box .select-form {
+    padding: 8px 4px 9px 20px;
+    border-color: white;
+}
+form.search-box .select-form {
+    height: 70px;
+    width: 34%;
+    color: #777777;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 9px 33px 9px 32px;
+    border: none;
+    border-radius: 0px;
+    position: relative;
+    border: none;
+}
+
+form.search-box .select-form:target,
+form.search-box .select-form:focus-visible {
+    border-color: red;
+}

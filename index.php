@@ -1,4 +1,8 @@
-<?php include "init.php"; ?>
+<?php 
+include "init.php"; 
+$locations = (new \Models\Job)->loadAllLocations();
+$locations = array_column($locations, 'location');
+?>
 
 <?php include("includes/header.php"); ?>
 <link rel="stylesheet" href="assets/css/nice-select.css">
@@ -21,19 +25,18 @@
                         <div class="row">
                             <div class="col-xl-8">
                                 <!-- form -->
-                                <form action="#" class="search-box">
+                                <form class="search-box">
                                     <div class="input-form">
-                                        <input type="text" placeholder="Job Tittle or keyword">
+                                        <input name="title" type="text" placeholder="Job Tittle or keyword">
                                     </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="select" id="select1">
-                                                <option value="">Location BD</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <select class="select-form" name="location">
+                                        <option value="">Anywhere</option>
+                                        <?php foreach($locations as $location): ?>
+                                            <option value="<?php echo $location; ?>"><?php echo $location; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                     <div class="search-form">
-                                        <a href="#">Find job</a>
+                                        <a id="find-job" href="#">Find job</a>
                                     </div>	
                                 </form>	
                             </div>
@@ -254,13 +257,6 @@
 
     </main>
     <?php include("includes/footer.php"); ?>
-    <script src="./assets/js/jquery.nice-select.min.js"></script>
-    <script>
-        var nice_Select = $('select');
-        if(nice_Select.length){
-            nice_Select.niceSelect();
-        }
-    </script>
     <script src="./assets/js/models/category.js"></script>
     <script src="./assets/js/index.js"></script>
     </body>

@@ -105,6 +105,14 @@ class Job extends DB\DBManager
     {
         $query = "SELECT u.username, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id WHERE 1 ";
         $parameters = [];
+
+        if(isset($filters['title']) && !empty($filters['title']))
+        {
+            $query .= "AND title LIKE ? ";
+            $title = $filters['title'];
+            $parameters[] = "%$title%";
+        }
+
         if(isset($filters['category']) && !empty($filters['category']))
         {
             $query .= "AND category_id = (SELECT id FROM categories WHERE slug = ?)";

@@ -112,7 +112,7 @@ let jobsManager = {
             let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
             let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
             let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
-            let job_nature = jobsManager.formartJobNature(job.job_nature);
+            let job_nature = formatJobNature(job.job_nature);
 
             html += '<div id="'+ job.id +'" class="single-job-items mb-30">';
             html += '<div class="job-items">';
@@ -145,15 +145,6 @@ let jobsManager = {
             $(".jobs-container").html(html);
         }
         $(".count-job > span").html(jobs.length + " Jobs Found");
-    },
-
-    formartJobNature: (job_nature) => {
-        let job_natures = job_nature.split('-');
-        let result = '';
-        job_natures.forEach((job_nature) => {
-            result += job_nature[0].toUpperCase() + job_nature.substring(1) + " ";
-        });
-        return result;
     },
 
     applyJobActions: () => {
