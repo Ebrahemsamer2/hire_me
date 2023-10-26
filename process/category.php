@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     if($action === 'loadAll')
     {
         $response_data['success'] = 1;
-        $categories = (new \Models\Category)->loadHomeCategories();
+        $categories = (new \Models\Category)->loadCategories(0, 8);
         $response_data['categories'] = $categories;
         echo json_encode($response_data);
         exit;
