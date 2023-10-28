@@ -72,6 +72,7 @@
                                         <div class="dropdown-menu" aria-labelledby="user-dropdown">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
                                             <a class="dropdown-item" href="myjobs.php">My Jobs</a>
+                                            <a class="dropdown-item" href="job_categories.php">Job Categories</a>
                                             <?php if($_SESSION['user']['type'] == 'employer'): ?>
                                                 <a class="dropdown-item" href="new_job.php">Create Job</a>
                                             <?php endif; ?>

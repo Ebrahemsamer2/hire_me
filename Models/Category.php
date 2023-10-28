@@ -38,7 +38,7 @@ class Category extends DB\DBManager
 
     public function loadCategories($offset = 0, $limit = 0)
     {
-        $query = "SELECT c.*, count(j.id) as jobsCount FROM `categories` c INNER JOIN jobs j ON c.id = j.category_id GROUP BY c.id";
+        $query = "SELECT c.*, count(j.id) as jobsCount FROM `categories` c LEFT JOIN jobs j ON c.id = j.category_id GROUP BY c.id";
         if($offset && $offset)
         {
             $query .= " LIMIT $offset, $limit";
