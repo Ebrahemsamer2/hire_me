@@ -17,7 +17,7 @@ if(! \Models\Session::checkLogin()){
             <div class="row">
                 <div class="col-lg-3">
                     <div class="media contact-info">
-                        <img src="assets/img/user.jpg" alt="User Avatar" class="img-fluid avatar">
+                        <img src="assets/img/<?php echo \Models\Session::get('user')['type'] == 'employer' ? "company.png" : "user.jpg"; ?>" alt="User Avatar" class="img-fluid avatar">
                     </div>
 
                     <button class="mb-2 boxed-btn w-100 upload-avatar-btn">Upload Image</button>
