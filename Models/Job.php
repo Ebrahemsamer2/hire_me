@@ -82,7 +82,7 @@ class Job extends DB\DBManager
     public function loadApplicants()
     {
         $id = $this->getId();
-        $query = "SELECT u.username, u.avatar, u.about_me, u.resume, ju.* FROM job_user ju INNER JOIN users u ON ju.user_id = u.id WHERE ju.job_id = $id";
+        $query = "SELECT u.email, u.username, u.avatar, u.about_me, u.resume, ju.* FROM job_user ju INNER JOIN users u ON ju.user_id = u.id WHERE ju.job_id = $id";
         $statement = $this->pdo->query($query);
         return $statement->fetchAll();
     }

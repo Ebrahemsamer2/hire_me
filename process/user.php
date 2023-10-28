@@ -7,6 +7,47 @@ $response_data = [];
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 
+    if($action == 'download_resume')
+    {
+        $email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_EMAIL);
+        if(! $email)
+        {
+            $response_data['success'] = 0;
+            $response_data['message'] = "Invalid Email";
+            echo json_encode($response_data);
+            exit;
+        }
+        $user = new \Models\User([$email]);
+        if(!$user->getId())
+        {
+            $response_data['success'] = 0;
+            $response_data['message'] = "Invalid User";
+            echo json_encode($response_data);
+            exit;
+        }
+        if(!$user->resume)
+        {
+            $response_data['success'] = 0;
+            $response_data['message'] = "User does not have resume";
+            echo json_encode($response_data);
+            exit;
+        }
+        if(!file_exists("../assets/resumes/" . $user->resume))
+        {
+            $response_data['success'] = 0;
+            $response_data['message'] = "User resume can not be found";
+            echo json_encode($response_data);
+            exit;
+        }
+        $resume_filename = $user->resume;
+        $response_data['success'] = 1;
+        $response_data['message'] = "Resume will be downloaded shortly.";
+        $response_data['resume_filename'] = $resume_filename;
+        
+        echo json_encode($response_data);
+        exit;
+    }
+
     if($action === 'loadProfile')
     {
         $user_session_data = \Models\Session::get('user');
@@ -304,7 +345,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             
             echo json_encode($response_data);
             exit;
-
         }
 
         $user = new \Models\User([$email]);

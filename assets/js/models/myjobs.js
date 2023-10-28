@@ -31,8 +31,8 @@ let myJobsManager = {
 
     },
     
-    drawJob: (job) => { console.log(timeSince(job.created_timestamp));
-        let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
+    drawJob: (job) => {
+        let created_at = job.created_timestamp ? timeSince(job.created_timestamp) : '----';
         let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
         let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
         let avatar = job.avatar ? 'assets/img/avatar/' + job.avatar : 'assets/img/company.png';
