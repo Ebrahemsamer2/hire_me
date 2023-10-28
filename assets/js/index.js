@@ -7,7 +7,7 @@ let home = {
             home.loadForYouJobs((jobs) => {
                 let html = ``;
                 jobs.forEach((job) => {
-                    let logo = job.avatar ? "assets/img/avatar/" + job.avatar : "assets/img/user.jpg";
+                    let logo = job.avatar ? "assets/img/avatar/" + job.avatar : "assets/img/company.png";
                     let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
                     let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
                     let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
@@ -86,7 +86,11 @@ let home = {
                 response = JSON.parse(response)
                 if(response.success)
                 {
-                    callback(response.jobs);
+                    if(typeof response.jobs != undefined && response.jobs) {
+                        callback(response.jobs);
+                    } else {
+                        $(".featured-jobs").html("<p class='text-center h4'>No Jobs has found</p>");
+                    }
                 }
             }
         });

@@ -1,4 +1,6 @@
 let user = {
+    userType: 'employee',
+
     init: () => {
         user.applyUserActions();
     },
@@ -63,13 +65,14 @@ let user = {
     },
 
     collectRegisterFormData: () => {
+        let parentClass = user.userType;
         let data = {};
-        data.first_name = $(".register input[name='first_name']").val();
-        data.last_name = $(".register input[name='last_name']").val();
-        data.email = $(".register input[name='email']").val();
-        data.type = $(".register input[name='type']").val();
-        data.password = $(".register input[name='password']").val();
-        data.confirmation = $(".register input[name='confirmation']").val();
+        data.first_name = $("."+ parentClass +" input[name='first_name']").val();
+        data.last_name = $("."+ parentClass +" input[name='last_name']").val();
+        data.email = $("."+ parentClass +" input[name='email']").val();
+        data.type = $("."+ parentClass +" input[name='type']").val();
+        data.password = $("."+ parentClass +" input[name='password']").val();
+        data.confirmation = $("."+ parentClass +" input[name='confirmation']").val();
 
         data.action = 'register';
         return data;
@@ -84,7 +87,10 @@ let user = {
     },
     
     applyUserActions: () => {
-        $("input[name='register']").on("click", () => {
+        $("input[name='register']").on("click", (e) => {
+            if($(e.target).parents(".employer").length) {
+                user.userType = 'employer';
+            }
             user.register();
         });
 

@@ -1,6 +1,8 @@
 <?php
-    $main_title = "Hire Me | About Us";
+    include "init.php";
+    $main_title = "Hire Me | About Us.";
 ?>
+
 <?php include("includes/header.php"); ?>
     <main>
 

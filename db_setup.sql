@@ -8,8 +8,8 @@ CREATE TABLE `hire_me`.`users` (
   `web` VARCHAR(100) NULL,
   `avatar` VARCHAR(255) NULL,
   `resume` VARCHAR(255) NULL,
-  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
@@ -18,8 +18,8 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL AUTO_INCREMENT,
   `slug` varchar(100) NOT NULL,
-  `created_timestamp` int(11) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_timestamp` int(11) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_unique` (`name` ASC) VISIBLE);
 
@@ -40,8 +40,8 @@ CREATE TABLE `hire_me`.`jobs` (
   `vacancy_number` INT(3) NULL,
   `years_of_experience` VARCHAR(10) NOT NULL,
   `status` VARCHAR(20) NOT NULL DEFAULT 'opened',
-  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) VISIBLE);
 
@@ -50,8 +50,8 @@ CREATE TABLE `job_user` (
   `job_id` int(11) NOT NULL,
   `usrt_id` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`));
 
 
@@ -63,6 +63,6 @@ CREATE TABLE `hire_me`.`contacts` (
   `email` VARCHAR(255) NOT NULL,
   `subject` VARCHAR(255) NOT NULL,
   `message` TEXT NOT NULL,
-  `created_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_timestamp` INT(11) NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`);

@@ -59,3 +59,18 @@ form.search-box .select-form:target,
 form.search-box .select-form:focus-visible {
     border-color: red;
 }
+
+/* Job listing */
+
+.single-job-items .company-img img {
+    margin-right: 30px;
+}
+.single-job-items{
+    padding:36px 15px;
+}
+
+@media only screen and (max-width: 767px) {
+    form.search-box .select-form {
+        width: 100%;
+    }
+}

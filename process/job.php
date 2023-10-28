@@ -15,9 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $response_data['jobs'] = (new \Models\Job)->loadFilteredJobs($filters, $offset);
 
         $categories = (new \Models\Category)->loadAll();
-        if(count($categories)) {
-            $response_data['categories'] = $categories;
-        }
+        $response_data['categories'] = $categories;
 
         $locations = (new \Models\Job)->loadAllLocations();
         $locations = array_column($locations, 'location');

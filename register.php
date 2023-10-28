@@ -30,7 +30,7 @@ if(\Models\Session::checkLogin()){
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Apply as a Employee</h3>
-                    <div class="row register-form">
+                    <div class="row register-form employee">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="first_name" placeholder="First Name *" value="" />
@@ -54,7 +54,7 @@ if(\Models\Session::checkLogin()){
                 </div>
                 <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <h3  class="register-heading">Apply as a Hirer</h3>
-                    <div class="row register-form">
+                    <div class="row register-form employer">
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="text" class="form-control" name="first_name" placeholder="First Name *"/>

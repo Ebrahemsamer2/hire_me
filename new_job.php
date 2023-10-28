@@ -108,13 +108,13 @@
                                 <div class="row">
                                     <div class="col-md-6 p-0">
                                         <div class="mt-10 pb-10">
-                                            <textarea rows="4" name="required_knowledge" class="form-control" placeholder="Required Knowledge: each should be seperated by semicolon(;)" onfocus="this.placeholder = ''"
+                                            <textarea rows="5" name="required_knowledge" class="form-control" placeholder="Required Knowledge: each should be seperated by semicolon(;)" onfocus="this.placeholder = ''"
                                                 onblur="this.placeholder = 'Required Knowledge: each should be seperated by semicolon(;)'" required><?php echo $job ? $job->required_knowledge : ''; ?></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6 pr-0">
                                         <div class="mt-10 pb-10">
-                                            <textarea rows="4" name="education_experience" class="form-control" placeholder="Education & Experience: each should be seperated by semicolon(;)" onfocus="this.placeholder = ''"
+                                            <textarea rows="5" name="education_experience" class="form-control" placeholder="Education & Experience: each should be seperated by semicolon(;)" onfocus="this.placeholder = ''"
                                                 onblur="this.placeholder = 'Education & Experience: each should be seperated by semicolon(;)'" required><?php echo $job ? $job->education_experience : ''; ?></textarea>
                                         </div>
                                     </div>

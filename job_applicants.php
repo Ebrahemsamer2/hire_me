@@ -29,6 +29,9 @@
         <h2 class="m-4"><?php echo $job->title; ?></h2>
 
         <div class="row applicants-list m-2">
+            <?php if(!count($applicants)): ?>
+                <p class="p-4">No Applicants Found.</p>
+            <?php endif; ?>
             
             <?php foreach($applicants as $applicant): ?>
 

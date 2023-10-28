@@ -108,8 +108,9 @@ let jobsManager = {
         let html = '';
         for(let i in jobs)
         {
-            let job = jobs[i]; 
-            let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
+            let job = jobs[i];
+            let avatar = job.avatar ? 'assets/img/avatar/' + job.avatar : 'assets/img/company.png';
+            let created_at = job.created_timestamp ? timeSince(job.created_timestamp) : '----';
             let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
             let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
             let job_nature = formatJobNature(job.job_nature);
@@ -117,7 +118,7 @@ let jobsManager = {
             html += '<div id="'+ job.id +'" class="single-job-items mb-30">';
             html += '<div class="job-items">';
             html += '<div class="company-img">';
-            html += '   <a href="#"><img src="assets/img/icon/job-list1.png" alt=""></a>';
+            html += '   <a href="#"><img width="100" src="'+ avatar +'" alt=""></a>';
             html += '</div>';
             html += '<div class="job-tittle job-tittle2">';
             html += '<a href="job_details.php?slug='+ job.slug + '">';
@@ -309,9 +310,11 @@ let jobsManager = {
         });
 
         $(window).scroll(function () {
-            let last_position = Math.round($(".jobs-container .single-job-items:last").position().top);
-            if ($(window).scrollTop() >= last_position + 200) {
-                jobsManager.loadMore();
+            if(jobsManager.lastJobsCount) {
+                let last_position = Math.round($(".jobs-container .single-job-items:last").position().top);
+                if ($(window).scrollTop() >= last_position + 200) {
+                    jobsManager.loadMore();
+                }
             }
         });
     },

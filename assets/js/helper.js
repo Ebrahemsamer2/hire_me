@@ -1,32 +1,31 @@
 
-let timeSince = (timestamp) => {
-    const date = new Date();
-    const now_timestamp = date.getTime();
-    const seconds = Math.floor(now_timestamp / 1000);
-    
-    const difference = seconds - timestamp;
-    let output = ``;
-    if (difference < 60) {
-        // Less than a minute has passed:
-        output = `${difference} seconds ago`;
-    } else if (difference < 3600) {
-        // Less than an hour has passed:
-        output = `${Math.floor(difference / 60)} minutes ago`;
-    } else if (difference < 86400) {
-        // Less than a day has passed:
-        output = `${Math.floor(difference / 3600)} hours ago`;
-    } else if (difference < 2620800) {
-        // Less than a month has passed:
-        output = `${Math.floor(difference / 86400)} days ago`;
-    } else if (difference < 31449600) {
-        // Less than a year has passed:
-        output = `${Math.floor(difference / 2620800)} months ago`;
-    } else {
-        // More than a year has passed:
-        output = `${Math.floor(difference / 31449600)} years ago`;
+
+function timeSince(timestamp_date) {
+    let date = new Date(timestamp_date);
+    let seconds = Math.floor((new Date() - date) / 1000);
+    let interval = seconds / 31536000;
+  
+    if (interval > 1) {
+      return Math.floor(interval) + " years ago";
     }
-    return output;
-  };
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+}
 
 let getUrlParameter = function getUrlParameter(sParam) {
     let sPageURL = window.location.search.substring(1),

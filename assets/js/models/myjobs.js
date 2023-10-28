@@ -9,6 +9,19 @@ let myJobsManager = {
     },
     drawMyJobs: () => {
         myJobsManager.loadMyJobs((myJobs) => {
+            if(myJobsManager.userType == 'employer') {
+                $(".myjobs-list").html("<p class='text-center p-4 h4'>You did not post any jobs.</p>");
+            } else {
+                $(".myjobs-list").html("<p class='text-center p-4 h4'>You did not apply to any job.</p>");
+            }
+            if(myJobs.length) {
+                if(myJobsManager.userType == 'employee') {
+                    $(".myjobs-list").html("<p class='p-4 h4'>Jobs you have applied to</p>");
+                } else {
+                    $(".myjobs-list").html("<p class='p-4 h4'>Jobs you have created</p>");
+                }
+            }
+
             myJobs.forEach(job => {
                 myJobsManager.drawJob(job);
             });
@@ -18,11 +31,11 @@ let myJobsManager = {
 
     },
     
-    drawJob: (job) => {
+    drawJob: (job) => { console.log(timeSince(job.created_timestamp));
         let created_at = job.created_timestamp ? timeSince(new Date(job.created_timestamp)) : '----';
         let salary_from = !job.salary_from ? 'N/A' : '$'+job.salary_from;
         let salary_to = !job.salary_to ? 'N/A' : '$'+job.salary_to;
-        let avatar = job.avatar ? 'assets/img/avatar/' + job.avatar : 'assets/img/user.jpg';
+        let avatar = job.avatar ? 'assets/img/avatar/' + job.avatar : 'assets/img/company.png';
         let html = '<div class="col-md-12">';
 
         html += '<div id="'+ job.id +'" class="single-job-items mb-30">';
@@ -74,7 +87,9 @@ let myJobsManager = {
                 response = JSON.parse(response);
                 if(response.success)
                 {
-                    callback(response.myJobs);
+                    if(typeof response.myJobs != undefined && response.myJobs) {
+                        callback(response.myJobs);
+                    }
                 }
             }
         });
