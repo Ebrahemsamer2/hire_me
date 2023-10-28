@@ -32,7 +32,7 @@ let job = {
 
 
     drawJob: (jobObj) => {
-        let company_image_src = jobObj.employer.avatar ? "assets/img/avatar" + jobObj.employer.avatar : "assets/img/company.png";
+        let company_image_src = jobObj.employer.avatar ? "assets/img/avatar/" + jobObj.employer.avatar : "assets/img/company.png";
         let username = jobObj.employer.username;
         let web = jobObj.employer.web;
         let email = jobObj.employer.email;

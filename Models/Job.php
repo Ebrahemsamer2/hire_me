@@ -100,7 +100,7 @@ class Job extends DB\DBManager
 
     public function loadFilteredJobs($filters = [], $offset = 0, $limit = 50)
     {
-        $query = "SELECT u.username, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id WHERE 1 ";
+        $query = "SELECT u.username, u.avatar, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id WHERE 1 ";
         $parameters = [];
 
         if(isset($filters['title']) && !empty($filters['title']))
