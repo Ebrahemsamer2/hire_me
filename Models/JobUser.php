@@ -15,7 +15,8 @@ class JobUser extends DB\DBManager
     public $primary_col_name = 'id';
     public $load_cols = ['job_id', 'user_id'];
 
-    protected $fillable = ['job_id', 'user_id', 'status', 'created_timestamp', 'updated_timestamp'];
+    protected $updatable = ['status'];
+    protected $fillable = ['job_id', 'user_id', 'status'];
 
     public function __construct($load_data = [])
     {
@@ -32,14 +33,14 @@ class JobUser extends DB\DBManager
     
     public function apply()
     {
-        $data = [$this->job_id, $this->user_id, $this->status, time(), time()];
+        $data = [$this->job_id, $this->user_id, $this->status];
         $this->id = $this->save($data);
         return $this->id ?? false;
     }
 
     public function loadJobs($user_id)
     {
-        $query = "SELECT ju.user_id, ju.job_id, ju.status , u.username, u.avatar, j.* FROM job_user ju 
+        $query = "SELECT ju.user_id, ju.job_id, ju.status as applicant_status , u.username, u.avatar, j.* FROM job_user ju 
         LEFT JOIN jobs j ON ju.job_id = j.id 
         LEFT JOIN users u ON j.employer_id = u.id
         WHERE ju.user_id = ?";
@@ -59,11 +60,6 @@ class JobUser extends DB\DBManager
         return $statement->fetchAll();
     }
     
-    public function updateStatus()
-    {
-        
-    }
-
     public function getId()
     {
         return $this->id ?? 0;

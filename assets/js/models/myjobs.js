@@ -62,7 +62,11 @@ let myJobsManager = {
 
         html += '</div>';
         html += '<div class="items-link items-link2 f-right">';
-        html += '<span class="text-success">'+ job.status.toUpperCase() +'</span>';
+        if(myJobsManager.userType == 'employee') {
+            html += '<span class="text-success font-weight-bold">'+ job.applicant_status.toUpperCase() +'</span>';
+        } else {
+            html += '<span class="text-success font-weight-bold">'+ job.status.toUpperCase() +'</span>';   
+        }
         html += '<span>'+ created_at +'</span>';
         html += '</div>';
         html += '</div>';

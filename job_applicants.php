@@ -35,7 +35,7 @@
             
             <?php foreach($applicants as $applicant): ?>
 
-            <div data-email="<?php echo $applicant->email; ?>" class="col-md-3 applicant">
+            <div data-email="<?php echo $applicant->email; ?>" data-slug="<?php echo $applicant->slug; ?>" class="col-md-3 applicant">
                 <div class="card">
                     <img class="card-img-top" src="assets/img/<?php echo $applicant->avatar ? "avatar/" . $applicant->avatar : "user.jpg" ?>" alt="Applicant Avatar">
                     <div class="card-body">
@@ -64,28 +64,7 @@
 </section>
     
 <?php include "includes/footer.php"; ?>
-<script>
-    $("#download-applicant-resume").on("click", (e) => {
-        e.preventDefault();
-        let data = {"action": "download_resume"};
-        data.user_email = $(e.target).parents(".applicant").attr("data-email");
-        
-        $.ajax({
-            url: 'process/user.php',
-            data: data,
-            type: 'POST',
-            success: (response) => {
-                response = JSON.parse(response);
-                message.show(response.message);
-                if(response.success)
-                {
-                    let resume_filename = response.resume_filename;
-                    window.open("assets/resumes/" + resume_filename, "_blank");
-                }
-            }
-        });
-    });
-</script>
+<script src="assets/js/models/applicant.js"></script>
 </body>
 </html>
 

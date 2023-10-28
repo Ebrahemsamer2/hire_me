@@ -9,6 +9,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     if($action == 'download_resume')
     {
+        $slug = filter_input(INPUT_POST, 'job_slug', FILTER_SANITIZE_EMAIL);
         $email = filter_input(INPUT_POST, 'user_email', FILTER_SANITIZE_EMAIL);
         if(! $email)
         {
@@ -39,10 +40,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             echo json_encode($response_data);
             exit;
         }
-        $resume_filename = $user->resume;
-        $response_data['success'] = 1;
-        $response_data['message'] = "Resume will be downloaded shortly.";
-        $response_data['resume_filename'] = $resume_filename;
+        $job = new \Models\Job([$slug]);
+        if(!$job->getId())
+        {
+            $response_data['success'] = 0;
+            $response_data['message'] = "Invalid Job";
+            echo json_encode($response_data);
+            exit;
+        }
+        
+        $job_user = new \Models\JobUser([$job->getId(), $user->getId()]);
+        $job_user->status = "resume viewed";
+        
+        if($job_user->update())
+        {
+            $resume_filename = $user->resume;
+            $response_data['success'] = 1;
+            $response_data['message'] = "Resume will be downloaded shortly.";
+            $response_data['resume_filename'] = $resume_filename;
+        }
         
         echo json_encode($response_data);
         exit;
