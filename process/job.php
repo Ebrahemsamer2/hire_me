@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     if($action === 'loadForYouJobs')
     {
         $response_data['success'] = 1;
-        $jobs = (new \Models\Job)->loadAllWith('users', 'employer_id', ['username'], 0, 5);
+        $jobs = (new \Models\Job)->loadAllWith('users', 'employer_id', ['username', 'avatar'], 0, 5);
         if(count($jobs)) {
             $response_data['jobs'] = $jobs;
         }

@@ -72,13 +72,6 @@ class Job extends DB\DBManager
         return $statement->fetchAll();
     }
 
-    public function loadForYouJobs()
-    {
-        $query = "SELECT u.username, u.avatar, j.* FROM jobs j INNER JOIN users u ON u.id = j.employer_id LIMIT 0, 5";
-        $statement = $this->pdo->query($query);
-        return $statement->fetchAll();
-    }
-
     public function loadApplicants()
     {
         $id = $this->getId();
